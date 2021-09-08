@@ -1,0 +1,80 @@
+<%- include('../../base/head')  %>
+<%- include('../../components/navbar')  %>
+<!-- Jumbotron -->
+<div class="jumbotron mx-auto col-sm-5 my-5 text-center ">
+
+        <!-- Title -->
+        <% 
+    let role = null;
+    if(user.role === 'student'){role='Sinh Viên'} 
+    if(user.role === 'teacher'){role='Giáo Viên'} 
+    if(user.role === 'admin'){role='Quản Trị Viên'} 
+    %>
+        <h2 class="card-title h2 text-center mb-3 text-uppercase"><%= role %>/ THÔNG TIN CÁ NHÂN</h2>
+        <!-- Subtitle -->
+        <!-- <p class="blue-text my-4 font-weight-bold">Powerful and free Material Design UI KIT</p> -->
+
+        <!-- Grid row -->
+        <div class="col mx-auto font-weight-light" style="cursor: pointer;">
+                <% if(typeof(user) !== 'undefined'){ %>
+                <% if(user.studentID){ %>
+                <p class="text-info">Mã Sinh Viên: <%= user.studentID  %> </p>
+                <% } if(user.teacherID){ %>
+                <p class="text-info">Mã Giáo Viên: <%= user.teacherID  %> </p>
+                <% } %>
+                <p class="text-info">Họ Và Tên: <%= user.name  %> </p>
+                <% if(user.subjectID){ %>
+                <p class="text-info">Mã Môn Học: <%= user.subjectID  %> </p>
+                <% } %>
+                <% if(user.subject){ %>
+                <p class="text-info">Môn Học: <%= user.subject.name %> </p>
+                <% } %>
+                <p class="text-info">Quyền Hạn: <%= role %> </p>
+                <% const date = new Date(user.dateOfBirth);
+        const day = date.getDate() < 10 ? `0${date.getDate()}` : date.getDate();
+        const month = date.getMonth() + 1 < 10 ? `0${date.getMonth() + 1}` : date.getMonth() + 1;
+        const year = date.getFullYear();
+        const dateString = `${day}/${month}/${year}`; %>
+                <% if(user.role != 'admin'){ %>
+                <p class="text-info">Ngày Sinh: <%= dateString  %> </p>
+                <% } %>
+                <p class="text-info">Email: <%= user.email  %> </p>
+                <% } %>
+
+
+
+
+        </div>
+        <!-- Grid row -->
+
+        <hr class="my-4">
+
+        <div class="pt-2">
+                <% if(typeof(user) !== 'undefined'){ %>
+                <% if(user.role == 'student'){ %>
+                <a type="button" class="btn btn-blue waves-effect" href="/student/search-exam">Tìm Kiếm Ca Thi <i
+                                class="far fa-hand-point-right"></i></a>
+                <a href="/users/logout" type="button" class="btn btn-outline-primary waves-effect">Đăng Xuất <i
+                                        class="fas fa-sign-out-alt"></i></a>
+                <% } %>
+                <% if(user.role == 'teacher'){ %>
+                <a href="/teacher/dashboard" type="button" class="btn btn-blue waves-effect">Trang Quản Trị <i
+                                        class="far fa-hand-point-right"></i></a>
+                <a href="/users/changepassword" type="button" class="btn btn-outline-primary waves-effect">Đổi Mật Khẩu <i
+                                                class="fas fa-sign-out-alt"></i></a>
+                <% } %>
+                <% if(user.role == 'admin'){ %>
+                <a href="/admin/dashboard" type="button" class="btn btn-blue waves-effect">Trang Quản Trị <i
+                                        class="far fa-hand-point-right"></i></a>
+                <a href="/users/changepassword" type="button" class="btn btn-outline-primary waves-effect">Đổi Mật Khẩu <i
+                                                class="fas fa-sign-out-alt"></i></a>
+                    
+        
+                <% } %>
+                <% } %>
+        </div>
+
+</div>
+<!-- Jumbotron -->
+<%- include('../../components/footer')  %>
+<%- include('../../base/end')  %>

@@ -1,0 +1,93 @@
+<%- include('../../base/head')  %>
+<%- include('../../components/navbar')  %>
+
+<div class="col-sm-4 mx-auto mt-5 mb-5">
+    <form class="text-center border border-light p-5"
+        action="<%= typeof(action)!=='undefined'?action: '/teacher/create-new-question' %>" method="POST">
+        <p class="h4 mb-5">Giáo Viên | Thêm Câu Hỏi</p>
+        <% if(typeof(alert) !== 'undefined'){  %>
+        <div class="alert alert-<%= alert.type  %>  alert-dismissible fade show" role="alert">
+            <strong><%= alert.message  %> </strong>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <% } %>
+
+        <% if(typeof(question) !== 'undefined'){ %>
+        <input type="text" hidden name="_id" value="<%=typeof(question) !== 'undefined' ? question._id : ''  %> ">
+        <% } %>
+        <textarea class="form-control mb-4" name="question" id="" cols="30" rows="8" placeholder="Nội dung câu hỏi"
+            required><%= typeof(question) !== 'undefined' ? question.question : ''%></textarea>
+        <input name="choiceA" type="text" class="form-control mb-4" placeholder="Đáp Án A" required
+            value="<%= typeof(question) !== 'undefined' ? question.choiceA : ''%>">
+        <input name="choiceB" type="text" class="form-control mb-4" placeholder="Đáp Án B" required
+            value="<%= typeof(question) !== 'undefined' ? question.choiceB : ''%>">
+        <input name="choiceC" type="text" class="form-control mb-4" placeholder="Đáp Án C" required
+            value="<%= typeof(question) !== 'undefined' ? question.choiceC : ''%>">
+        <input name="choiceD" type="text" class="form-control mb-4" placeholder="Đáp Án D" required
+            value="<%= typeof(question) !== 'undefined' ? question.choiceD : ''%>">
+        <select class="custom-select custom-select-sm mb-3" name="correct" required>
+            <% if(typeof(question) !== 'undefined') { %>
+            <% 
+                    const corrects = ['A', 'B', 'C', 'D'];
+                    const correct = question.correct;
+                    corrects.splice(corrects.indexOf(correct), 1);
+            %>
+            <option selected value="<%=correct %> "><%= correct  %> </option>
+            <% corrects.forEach(e => { %>
+            <option value="<%=e  %> "><%= e %> </option>
+            <% }) %>
+            <% }else{ %>
+            <option selected>Lựa Chọn Đáp Án Đúng</option>
+            <option value="A">A</option>
+            <option value="B">B</option>
+            <option value="C">C</option>
+            <option value="D">D</option>
+            <% } %>
+        </select>
+        <select class="custom-select custom-select-sm mb-3" name="level" required>
+            <% if(typeof(question) !== 'undefined') { %>
+            <% 
+                    const levels = ['easy', 'normal', 'hard'];
+                    const level = question.level;
+                    levels.splice(levels.indexOf(level), 1);
+            %>
+            <% if(level === 'easy'){ %>
+            <option value="<%= level  %> ">Dễ</option>
+            <% } %>
+            <% if(level === 'normal'){ %>
+            <option value="<%= level  %> ">Trung Bình</option>
+            <% } %>
+            <% if(level === 'hard'){ %>
+            <option value="<%= level  %> ">Khó</option>
+            <% } %>
+            <% levels.forEach(e => { %>
+            <% if(e =='easy'){ %>
+            <option value="<%= level  %> ">Dễ</option>
+            <% } %>
+            <% if(e =='normal'){ %>
+            <option value="<%= level  %> ">Trung Bình</option>
+            <% } %>
+            <% if(e =='hard'){ %>
+            <option value="<%= level  %> ">Khó</option>
+            <% } %>
+            <% }) %>
+            <% }else{ %>
+            <option selected>Lựa Chọn Độ Khó</option>
+            <option value="easy">Dễ</option>
+            <option value="normal">Trung Bình</option>
+            <option value="hard">Khó</option>
+            <% } %>
+        </select>
+        <input name="chapter" type="number" step="1" min="1" class="form-control mb-4" placeholder="Chương" required
+            value="<%= typeof(question) !== 'undefined' ? question.chapter : ''%>">
+        <% if(typeof(question) !== 'undefined'){ %>
+        <button class="btn btn-warning btn-block my-4" type="submit">Cập Nhật</button>
+        <% }else{ %>
+        <button class="btn btn-info btn-block my-4" type="submit">Thêm Mới</button>
+        <% } %>
+    </form>
+</div>
+<%- include('../../components/footer')  %>
+<%- include('../../base/end')  %>

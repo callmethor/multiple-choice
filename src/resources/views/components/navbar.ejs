@@ -1,0 +1,45 @@
+<nav class="navbar navbar-expand-lg navbar-dark primary-color-dark">
+    <div class="container">
+        <a class="navbar-brand" href="/">TLU Multiple Choice</a>
+        <div class="collapse navbar-collapse" id="navbarText">
+            <ul class="navbar-nav mr-auto">
+                <!-- <li class="nav-item">
+                    <a class="nav-link" href="#">Home
+                        <span class="sr-only">(current)</span>
+                    </a>
+                </li> -->
+            </ul>
+            <ul class="navbar-nav">
+                <% 
+                if(typeof(user) !== 'undefined'){
+                
+                } 
+                %>
+                <span class="navbar-text white-text">
+                    <% if(typeof(user) != 'undefined'){ %>
+                    <% 
+                    let role = null;
+                    if(user.role === 'student'){role='Sinh Viên'} 
+                    if(user.role === 'teacher'){role='Giáo Viên'} 
+                    if(user.role === 'admin'){role='Quản Trị Viên'} %>
+                    <% if(typeof(user.name) != 'undefined'){ %>
+                    <% if(user.role==='student'){ %>
+
+                    <% }else{ %>
+                    <a class="nav-link white-text" href="/<%=user.role %>/dashboard ">Trang Quản Trị</i></a>
+                    <% } %>
+                    <a class="nav-link white-text" href="/users/infomation">Cá Nhân/ <%= user.name %><span
+                            class="text-uppercase"> (<%= role %></span>)</a>
+                    <a class="nav-link white-text" href="/users/logout">Đăng Xuất <i
+                            class="fas fa-sign-out-alt"></i></a>
+                    <% }else{ %>
+                    <a class="nav-link white-text" href="/users/login">Đăng Nhập</a>
+                    <% } %>
+                    <% }else{ %>
+                    <a class="nav-link white-text" href="/users/login">Đăng Nhập</a>
+                    <% } %>
+                </span>
+            </ul>
+        </div>
+    </div>
+</nav>

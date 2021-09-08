@@ -1,0 +1,198 @@
+<%- include('../../base/head')  %>
+<%- include('../../components/navbar')  %>
+<style>
+    html{
+        scroll-behavior: smooth;
+    }
+    .timer {
+        width: 250px;
+        height: 500px;
+        position: fixed;
+        right: 0px;
+        margin-top: 30px;
+        background-color: #fff;
+        z-index: 10000;
+    }
+
+    .infomation {
+        width: 100%;
+        height: 10%;
+        border: 1px solid rgb(164, 255, 90);
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        border-bottom: none;
+    }
+
+    .infomation .name {
+        font-weight: bold;
+        margin-bottom: 0;
+    }
+
+    .infomation .studentID {
+        font-weight: bold;
+        font-size: 13px;
+        margin-bottom: 0;
+    }
+
+    .clock {
+        width: 100%;
+        height: 10%;
+        border: 1px solid rgb(164, 255, 90);
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        font-weight: bold;
+        font-size: 30px;
+        background-color: #fff;
+        border-bottom: none;
+
+    }
+
+    .questions {
+        list-style: none;
+        height: 50%;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+        border: 1px solid rgb(164, 255, 90);
+        padding-left: 0;
+        margin-bottom: 0;
+        background-color: #fff;
+        border-bottom: none;
+    }
+
+    .question {
+        margin: 0 5px;
+        width: 55px;
+        height: 55px;
+        border: 1px solid rgb(255, 255, 255);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 50%;
+        cursor: pointer;
+    }
+    .question a {
+        font-weight: bold;
+        color: black;
+    }
+
+    .finish {
+        width: 100%;
+        height: 20%;
+        border: 1px solid rgb(164, 255, 90);
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+        background-color: #fff;
+        border-bottom: none;
+    }
+
+    .finish .message {
+        font-weight: bold;
+        font-size: 15px;
+        margin-bottom: 0;
+    }
+
+    .finish .number {
+        font-weight: bold;
+        font-size: 20px;
+        margin-bottom: 0;
+    }
+
+    .handle {
+        width: 100%;
+        height: 10%;
+        border: 1px solid rgb(164, 255, 90);
+        border-bottom: 1px solid rgb(164, 255, 90);
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+    }
+</style>
+<div class="timer aqua-gradient card">
+    <div class="infomation peach-gradient">
+        <% if(typeof(student) !== 'undefined'){ %>
+        <p class="name"><%= student.name  %> </p>
+        <p class="studentID"><%= student.studentID  %></p>
+        <% } %>
+    </div>
+    <% if(typeof(exam) !== 'undefined'){ %>
+    <div class="clock dusty-grass-gradient" id="clock-time"><%= exam.timeDuration  %>:00 </div>
+    <% } %>
+    <ul class="questions tempting-azure-gradient">
+        <% if(typeof(questions) !== 'undefined'){ %>
+        <% questions.forEach((question, index) => { %>
+        <li id="<%= index+1  %>" class="question"><a href="#question-<%= index+1  %>"><%= index+1  %> </a></li>
+        <% }) %>
+        <% } %>
+    </ul>
+    <div class=" finish dusty-grass-gradient">
+        <!-- <p class="message">Số câu hoàn thành/ Số câu chưa hoàn thành</p>
+        <p class="number"><span style="color: green;">8</span> / <span style="color: red;">2</span></p> -->
+        <p>Màu xanh là những câu đã làm!</p>
+    </div>
+    <div class="handle">
+        <!-- <a href="#" class="submit">Nộp Bài</a> -->
+    </div>
+
+</div>
+<div class="container my-5">
+    <% if(typeof(exam) !== 'undefined'){ %>
+    <h2 class="h3 my-5"><%= exam.name  %> </h2>
+    <p class="my-5">Thời gian: <%= exam.timeDuration  %> phút</p>
+    <% } %>
+
+    <form action="/student/confirm-exam" method="post" id="form-exam">
+        <% if(typeof(questions) !== 'undefined'){ %>
+        <% questions.forEach((question, index) => { %>
+        <div class="card my-3">
+            <!-- Card content -->
+            <div class="card-body">
+                <input type="hidden" name="<%= index+1  %>" value="<%= question._id  %> ">
+                <!-- Text -->
+                <p id="question-<%= index+1  %>""  class=" card-text"><%= index+1  %>. <%= question.question  %> </p>
+                <!-- Group of default radios - option 1 -->
+                <div class="custom-control custom-radio mb-3">
+                    <input type="radio" class="custom-control-input" id="answer-<%= index+1  %>-A"
+                        name="<%= index+1  %>" value="A" data-qi="<%= index+1  %>">
+                    <label class="custom-control-label" for="answer-<%= index+1  %>-A"><%= question.choiceA  %> </label>
+                </div>
+
+                <!-- Group of default radios - option 2 -->
+                <div class="custom-control custom-radio mb-3">
+                    <input type="radio" class="custom-control-input" id="answer-<%= index+1  %>-B"
+                        name="<%= index+1  %>" value="B" data-qi="<%= index+1  %>">
+                    <label class="custom-control-label" for="answer-<%= index+1  %>-B"><%= question.choiceB  %></label>
+                </div>
+
+                <!-- Group of default radios - option 3 -->
+                <div class="custom-control custom-radio mb-3">
+                    <input type="radio" class="custom-control-input" id="answer-<%= index+1  %>-C"
+                        name="<%= index+1  %>" value="C" data-qi="<%= index+1  %>">
+                    <label class="custom-control-label" for="answer-<%= index+1  %>-C"><%= question.choiceC  %></label>
+                </div>
+                <!-- Group of default radios - option 4-->
+                <div class="custom-control custom-radio mb-3">
+                    <input type="radio" class="custom-control-input" id="answer-<%= index+1  %>-D"
+                        name="<%= index+1  %>" value="D" data-qi="<%= index+1  %>">
+                    <label class="custom-control-label" for="answer-<%= index+1  %>-D"><%= question.choiceD  %></label>
+                </div>
+                <!-- Button -->
+
+            </div>
+
+        </div>
+        <% }) %>
+        <% } %>
+    </form>
+    <a class="btn btn-outline-blue" id="push-exam">Nộp Bài</a>
+</div>
+<%- include('../../components/footer')  %>
+<%- include('../../base/end')  %>

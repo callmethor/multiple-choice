@@ -1,0 +1,295 @@
+<%- include('../../base/head')  %>
+<%- include('../../components/navbar')  %>
+<div class="container">
+    <p class="h1 my-5 text-center font-weight-light"> Quản Trị Viên/ Trang Quản Lý </p>
+    <% if(typeof(alert) !== 'undefined'){  %>
+    <div class="col-12">
+        <div class="alert alert-<%= alert.type  %>  alert-dismissible fade show" role="alert">
+            <strong><%= alert.message  %> </strong>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    </div>
+    <% } %>
+    <div class="col-12 mx-auto mt-5 mb-5">
+        <ul class="nav nav-tabs" id="myTab" role="tablist">
+            <li class="nav-item" role="">
+                <a class="nav-link active" id="home-tab" data-toggle="tab" href="#student" role="tab"
+                    aria-controls="home" aria-selected="true">Sinh Viên</a>
+            </li>
+            <li class="nav-item" role="">
+                <a class="nav-link" id="home-tab" data-toggle="tab" href="#teacher" role="tab" aria-controls="home"
+                    aria-selected="true">Giáo Viên</a>
+            </li>
+            <li class="nav-item" role="">
+                <a class="nav-link" id="contact-tab" data-toggle="tab" href="#question" role="tab"
+                    aria-controls="contact" aria-selected="false">Câu Hỏi</a>
+            </li>
+            <li class="nav-item" role="">
+                <a class="nav-link" id="contact-tab" data-toggle="tab" href="#exam" role="tab" aria-controls="contact"
+                    aria-selected="false">Ca Thi</a>
+            </li>
+        </ul>
+        <div class="tab-content" id="myTabContent">
+            <div class="tab-pane fade show active" id="student" role="tabpanel" aria-labelledby="home-tab">
+                <div class="row my-3">
+                    <h1 class="col text-center mt-2 mb-0">Danh Sách Sinh Viên</h1>
+                    <div class="col-4">
+                        <div class="row">
+                            <a class="btn btn-outline-indigo waves-effect ml-3"
+                                href="/admin/create-new-students"><i class="fas fa-file-upload"></i> Thêm Từ File</a>
+                            <a class="btn btn-outline-success waves-effect ml-3"
+                                href="/admin/create-new-student"><i class="far fa-keyboard"></i> Thêm</a>
+                        </div>
+                    </div>
+                    <div class="col-3 ml-auto">
+                        <div class="active-cyan-3 active-cyan-4 mb-4 mt-2">
+                            <input id="search-student" class="form-control" type="text" placeholder="Tìm Kiếm Sinh Viên"
+                                aria-label="Search Student">
+                        </div>
+                    </div>
+                </div>
+                <div class="col" style="overflow-y: scroll; max-height: 60vh;">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th scope="col">STT</th>
+                                <th scope="col">Mã Sinh Viên</th>
+                                <th scope="col">Họ Và Tên</th>
+                                <th scope="col">Môn Học</th>
+                                <th scope="col">Chức Năng</th>
+                            </tr>
+                        </thead>
+                        <tbody id="table-content-student">
+                            <% if(typeof(students) !== 'undefined'){ %>
+                            <% students.forEach((student, index) => { %>
+                            <tr>
+                                <th scope="row"><%=index+1  %> </th>
+                                <td><%= student.studentID  %> </td>
+                                <td><%= student.name  %></td>
+                                <td><%= student.subject.name  %></td>
+                                <td style="width: 100px;">
+                                    <div class="row justify-content-center">
+                                        <form action="/admin/edit-student" method="POST">
+                                            <input type="text" name="studentID" value="<%=student.studentID %>" hidden>
+                                            <button type="submit" class="text-warning bg-transparent border-0"
+                                                title="Edit Student">
+                                                <i class="far fa-edit"></i>
+                                            </button>
+                                        </form>
+                                        <button onclick="deleteStudentByID(`<%=student.studentID %>`)" type="submit"
+                                            class="text-danger bg-transparent border-0" title="Delete Student">
+                                            <i class="far fa-trash-alt"></i>
+                                        </button>
+                                        <!-- </form> -->
+                                    </div>
+                                </td>
+                            </tr>
+                            <% }) %>
+                            <% } %>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="tab-pane fade" id="teacher" role="tabpanel" aria-labelledby="home-tab">
+                <div class="row my-3">
+                    <h1 class="col text-center mt-2 mb-0">Danh Sách Giáo Viên </h1>
+                    <div class="col-3">
+                        <a class="btn btn-outline-warning waves-effect" href="/admin/create-new-teacher">Thêm Giáo
+                            Viên <i class="fas fa-plus-circle"></i></a>
+                    </div>
+                    <div class="col-3 ml-auto">
+                        <div class="active-cyan-3 active-cyan-4 mb-4 mt-2">
+                            <input id="search-teacher" class="form-control" type="text" placeholder="Tìm Kiếm Giáo Viên"
+                                aria-label="Search Teacher">
+                        </div>
+                    </div>
+                </div>
+                <div class="col" style="overflow-y: scroll; max-height: 60vh;">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th scope="col">STT</th>
+                                <th scope="col">Mã Giáo Viên</th>
+                                <th scope="col">Họ Và Tên</th>
+                                <th scope="col">Môn Giảng Dạy</th>
+                                <th scope="col">Chức Năng</th>
+                            </tr>
+                        </thead>
+                        <tbody id="table-content-teacher">
+                            <% if(typeof(teachers) !== 'undefined'){ %>
+                            <% teachers.forEach((teacher, index) => { %>
+                            <tr>
+                                <th scope="row"><%=index+1  %> </th>
+                                <td><%= teacher.teacherID  %> </td>
+                                <td><%= teacher.name  %></td>
+                                <td><%= teacher.subject.name  %></td>
+                                <td style="width: 100px;">
+                                    <div class="row justify-content-center">
+                                        <form action="/admin/edit-teacher" method="POST">
+                                            <input type="text" name="teacherID" value="<%=teacher.teacherID %>" hidden>
+                                            <button type="submit" class="text-warning bg-transparent border-0"
+                                                title="Edit Teacher">
+                                                <i class="far fa-edit"></i>
+                                            </button>
+                                        </form>
+                                        <button onclick="deleteTeacherByID(`<%=teacher.teacherID %>`)" type="submit"
+                                            class="text-danger bg-transparent border-0" title="Delete Student">
+                                            <i class="far fa-trash-alt"></i>
+                                            </>
+                                            <!-- </form> -->
+                                    </div>
+                                </td>
+                            </tr>
+                            <% }) %>
+                            <% } %>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="tab-pane fade" id="question" role="tabpanel" aria-labelledby="contact-tab">
+                <div class="row my-3">
+                    <h1 class="col text-center mt-2 mb-0">Danh Sách Câu Hỏi</h1>
+                    <div class="col-3"></div>
+                    <div class="col-3 ml-auto">
+                        <div class="active-cyan-3 active-cyan-4 mb-4 mt-2">
+                            <input id="search-question" class="form-control" type="text" placeholder="Tìm Kiếm Câu Hỏi"
+                                aria-label="Search Exam">
+                        </div>
+                    </div>
+                </div>
+                <div class="col" style="overflow-y: scroll; max-height: 60vh;">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th scope="col">STT</th>
+                                <th scope="col">Câu Hỏi</th>
+                                <th scope="col">Môn Học</th>
+                                <th scope="col">Người Tạo</th>
+                                <th scope="col">Ngày Tạo</th>
+                                <th scope="col">Chức Năng</th>
+                            </tr>
+                        </thead>
+                        <tbody id="table-content-question">
+                            <% if(typeof(questions) !== 'undefined'){ %>
+                            <% questions.forEach((question, index) => { %>
+                            <tr>
+                                <th scope="row"><%= index+1  %> </th>
+                                <td style="width: 500px;"><%= question.question  %> </td>
+                                <td><%= question.teacher.subject.name  %> </td>
+                                <% if(question.teacher===null){ %>
+                                <td>Không Xác Định</td>
+                                <% }else{ %>
+                                <td><%= question.teacher.name  %></td>
+                                <% } %>
+                                <% 
+                                    const date = new Date(question.createdDate);
+                                    const day = date.getDate() < 10 ? `0${date.getDate()}` : date.getDate();
+                                    const month = date.getMonth() + 1 < 10 ? `0${date.getMonth() + 1}` : date.getMonth() + 1;
+                                    const year = date.getFullYear();
+                                    const hours = date.getHours() + 1 < 10 ? `0${date.getHours() + 1}` : date.getHours() + 1;
+                                    const minutes = date.getMinutes() + 1 < 10 ? `0${date.getMinutes() + 1}` :date.getMinutes() + 1;
+                                    const seconds = date.getSeconds() + 1 < 10 ? `0${date.getSeconds() + 1}` :date.getSeconds() + 1;
+                                    const dateStr = `${day}-${month}-${year} | ${hours}:${minutes}:${seconds}`;
+                                %>
+                                <td><%= dateStr  %> </td>
+                                <td style="width: 100px;">
+                                    <div class="row justify-content-center">
+                                        <form action="/admin/edit-question" method="POST">
+                                            <input type="text" name="question" value="<%=question._id %>" hidden>
+                                            <button type="submit" class="text-warning bg-transparent border-0"
+                                                title="Edit Question">
+                                                <i class="far fa-edit"></i>
+                                            </button>
+                                        </form>
+                                        <button onclick="deleteQuestionByID(`<%=question._id %>`)" type=" button"
+                                            class="text-danger bg-transparent border-0" title="Delete Question">
+                                            <i class="far fa-trash-alt"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <% }) %>
+                            <% } %>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="tab-pane fade" id="exam" role="tabpanel" aria-labelledby="contact-tab">
+                <div class="row my-3">
+                    <h1 class="col text-center mt-2 mb-0">Danh Sách Ca Thi</h1>
+                    <div class="col-3 ml-auto">
+                        <a class="btn btn-outline-warning waves-effect" href="/admin/create-new-exam">Thêm Ca Thi <i
+                                class="fas fa-plus-circle"></i></a>
+                    </div>
+                    <div class="col-3 ml-auto">
+                        <div class="active-cyan-3 active-cyan-4 mb-4 mt-2">
+                            <input id="search-exam" class="form-control" type="text" placeholder="Tìm Kiếm Ca Thi"
+                                aria-label="Search Exam">
+                        </div>
+                    </div>
+                </div>
+                <div class="col" style="overflow-y: scroll; max-height: 60vh;">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th scope="col">STT</th>
+                                <th scope="col">Mã Ca Thi</th>
+                                <th scope="col">Tên Ca Thi</th>
+                                <th scope="col">Môn Thi</th>
+                                <th scope="col">Ngày Thi</th>
+                                <th scope="col">Thời Gian Thi</th>
+                                <th scope="col">Trạng Thái</th>
+                                <th scope="col">Chức Năng</th>
+                            </tr>
+                        </thead>
+                        <tbody id="table-content-exam">
+                            <% if(typeof(exams) !== 'undefined'){ %>
+                            <% exams.forEach((exam, index) => { %>
+                            <tr>
+                                <th scope="row"><%= index+1  %> </th>
+                                <td><%= exam.examID  %> </td>
+                                <td><%= exam.name %> </td>
+                                <td style="
+                                white-space: nowrap; 
+                                overflow: hidden;
+                                text-overflow: ellipsis; 
+                                ">
+                                    <%= (exam.subject) !== null ? exam.subject.name: 'Không Xác Định' %>
+                                </td>
+                                <% 
+                                const date1 = new Date(exam.startDate);
+                                const day1 = date1.getDate() < 10 ? `0${date1.getDate()}` : date1.getDate();
+                                const month1 = date1.getMonth() + 1 < 10 ? `0${date1.getMonth() + 1}` : date1.getMonth() + 1;
+                                const year1 = date1.getFullYear();
+                                const dateStr1 = `${day1}-${month1}-${year1}`;
+                                %>
+                                <td><%= dateStr1 %> </td>
+                                <td><%= exam.timeDuration %> Phút </td>
+                                <td><%= exam.status === 'inprogress'? 'Đang Diễn Ra': 'Hết Hạn' %> </td>
+                                <td>
+                                    <form action="/admin/edit-exam" method="POST" class="d-inline-block">
+                                        <input type="text" name="examID" value="<%=exam._id %>" hidden>
+                                        <button type="submit" class="text-warning bg-transparent border-0"
+                                            title="Edit Exam">
+                                            <i class="far fa-edit"></i>
+                                        </button>
+                                    </form>
+                                    <button onclick="deleteExamByID(`<%=exam._id %>`)" type=" button"
+                                        class="text-danger bg-transparent border-0" title="Delete Question">
+                                        <i class="far fa-trash-alt"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                            <%}) %>
+                            <% } %>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<%- include('../../components/footer')  %>
+<%- include('../../base/end')  %>

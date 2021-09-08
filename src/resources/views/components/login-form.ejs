@@ -1,0 +1,22 @@
+<!-- Default form login -->
+<form class="text-center border border-light p-5 mb-5" action="/users/login" method="POST">
+
+    <p class="h4 mb-4">ĐĂNG NHẬP</p>
+    <% if( typeof(alert) !== 'undefined'){ %>
+    <div class="alert alert-<%= alert.type %>" role="alert">
+        <%= alert.message  %>
+    </div>
+    <% } %>
+    <!-- Email -->
+    <input name="userID" type="text" required class="form-control mb-4" placeholder="Tên Đăng Nhập"
+        <% if(typeof(user) !== 'undefined'){ %> value=<%=user.userID  %> <%} %>>
+
+    <!-- Password -->
+    <input name="password" autocomplete="current-password" type="password" class="form-control mb-4" required
+        placeholder="Mật Khẩu" <% if(typeof(user) !== 'undefined'){ %> value=<%=user.password  %> <%} %>>
+
+    <!-- Sign in button -->
+    <button class="btn btn-info btn-block my-4" type="submit">Đăng Nhập</button>
+
+</form>
+<!-- Default form login -->

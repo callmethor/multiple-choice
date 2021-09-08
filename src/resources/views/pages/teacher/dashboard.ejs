@@ -1,0 +1,158 @@
+<%- include('../../base/head')  %>
+<%- include('../../components/navbar')  %>
+<div class="container">
+    <p class="h1 my-5 text-center font-weight-light">🎉 Giáo Viên/ Trang Quản Lý 🎉</p>
+    <% if(typeof(alert) !== 'undefined'){  %>
+    <div class="col-12">
+        <div class="alert alert-<%= alert.type  %>  alert-dismissible fade show" role="alert">
+            <strong><%= alert.message  %> </strong>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    </div>
+    <% } %>
+    <div class="col-12 mx-auto mt-5 mb-5">
+        <ul class="nav nav-tabs" id="myTab" role="tablist">
+            <li class="nav-item" role="presentation">
+                <a class="nav-link active" id="home-tab" data-toggle="tab" href="#student" role="tab"
+                    aria-controls="home" aria-selected="true">Điểm Sinh Viên</a>
+            </li>
+            <li class="nav-item" role="presentation">
+                <a class="nav-link" id="contact-tab" data-toggle="tab" href="#question" role="tab"
+                    aria-controls="contact" aria-selected="false">Câu Hỏi</a>
+            </li>
+        </ul>
+        <div class="tab-content" id="myTabContent">
+            <div class="tab-pane fade show active" id="student" role="tabpanel" aria-labelledby="home-tab">
+                <div class="row my-3">
+                    <h1 class="col text-center mt-2 mb-0">Danh Sách Sinh Viên</h1>
+                    <div class="col-3">
+
+                    </div>
+                    <div class="col-3 ml-auto">
+                        <div class="active-cyan-3 active-cyan-4 mb-4 mt-2">
+                            <input id="search-student-teacher" class="form-control" type="text"
+                                placeholder="Tìm Kiếm Sinh Viên" aria-label="Search Student">
+                        </div>
+                    </div>
+                </div>
+                <div class="col" style="overflow-y: scroll; max-height: 80vh;">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th scope="col">STT</th>
+                                <th scope="col">Mã Sinh Viên</th>
+                                <th scope="col">Họ Và Tên</th>
+                                <th scope="col">Môn Học</th>
+                                <th scope="col">Điểm Thi</th>
+                            </tr>
+                        </thead>
+                        <tbody id="table-content-student">
+                            <% if(typeof(students) !== 'undefined'){ %>
+                            <% students.forEach((student, index) => { %>
+                            <tr>
+                                <th scope="row"><%=index+1  %> </th>
+                                <td><%= student.studentID  %> </td>
+                                <td><%= student.name  %></td>
+                                <td><%= student.subject.name  %></td>
+                                <td><%= typeof(student.score) !== 'undefined' ? student.score : 'Đang Cập Nhật...'  %>
+                                </td>
+                            </tr>
+                            <% }) %>
+                            <% } %>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="tab-pane fade" id="question" role="tabpanel" aria-labelledby="contact-tab">
+                <div class="row my-3">
+                    <h1 class="col text-center mt-2 mb-0">Danh Sách Câu Hỏi</h1>
+                    <div class="col-4">
+                        <div class="row">
+                            <a class="btn btn-outline-indigo waves-effect ml-3"
+                                href="/teacher/create-new-questions"><i class="fas fa-file-upload"></i> Thêm Từ File</a>
+                            <a class="btn btn-outline-success waves-effect ml-3"
+                                href="/teacher/create-new-question"><i class="far fa-keyboard"></i> Thêm</a>
+                        </div>
+                    </div>
+                    <div class="col-2 ml-auto">
+                        <div class="active-cyan-3 active-cyan-4 mb-4 mt-2">
+                            <input id="search-question-teacher" class="form-control" type="text"
+                                placeholder="Tìm Kiếm Câu Hỏi" aria-label="Search Exam">
+                        </div>
+                    </div>
+                </div>
+                <div class="col" style="overflow-y: scroll; max-height: 80vh;">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th scope="col">STT</th>
+                                <th scope="col">Câu Hỏi</th>
+                                <th scope="col">Chương</th>
+                                <th scope="col">Mức Độ</th>
+                                <th scope="col">Môn Học</th>
+                                <th scope="col">Ngày Tạo</th>
+                                <th scope="col">Chức Năng</th>
+                            </tr>
+                        </thead>
+                        <tbody id="table-content-question-teacher">
+
+                            <% if(typeof(questions) !== 'undefined'){ %>
+                            <% questions.forEach((question, index) => { %>
+                            <tr>
+                                <th scope="row" class="text-center"><%= index+1  %> </th>
+                                <td style="width: 400px;"><%= question.question  %> </td>
+                                <td class="text-center"><%= question.chapter  %> </td>
+                                <% if(question.level === 'easy'){ %>
+                                <td class="text-center">Dễ </td>
+                                <% } %>
+                                <% if(question.level === 'normal'){ %>
+                                <td class="text-center">Trung Bình </td>
+                                <% } %>
+                                <% if(question.level === 'hard'){ %>
+                                <td class="text-center">Khó </td>
+                                <% } %>
+                                <td><%=typeof(question.teacher.subject) !== 'undefined' ? question.teacher.subject.name: '' %>
+                                </td>
+
+                                <% 
+                                    const date = new Date(question.createdDate);
+                                    const day = date.getDate() < 10 ? `0${date.getDate()}` : date.getDate();
+                                    const month = date.getMonth() + 1 < 10 ? `0${date.getMonth() + 1}` : date.getMonth() + 1;
+                                    const year = date.getFullYear();
+                                    const hours = date.getHours() + 1 < 10 ? `0${date.getHours() + 1}` : date.getHours() + 1;
+                                    const minutes = date.getMinutes() + 1 < 10 ? `0${date.getMinutes() + 1}` :date.getMinutes() + 1;
+                                    const seconds = date.getSeconds() + 1 < 10 ? `0${date.getSeconds() + 1}` :date.getSeconds() + 1;
+                                    const dateStr = `${day}-${month}-${year} | ${hours}:${minutes}:${seconds}`;
+                                %>
+                                <td><%= dateStr  %> </td>
+                                <td style="width: 100px;">
+                                    <div class="row justify-content-center">
+                                        <form action="/teacher/edit-question" method="POST">
+                                            <input type="text" name="question" value="<%=question._id %>" hidden>
+                                            <button type="submit" class="text-warning bg-transparent border-0"
+                                                title="Edit Question">
+                                                <i class="far fa-edit"></i>
+                                            </button>
+                                        </form>
+                                        <!-- <form action="/teacher/delete-question" method="POST"> -->
+                                        <button onclick="deleteQuestionByID(`<%=question._id %>`)" type=" button"
+                                            class="text-danger bg-transparent border-0" title="Delete Question">
+                                            <i class="far fa-trash-alt"></i>
+                                        </button>
+                                        <!-- </form> -->
+                                    </div>
+                                </td>
+                            </tr>
+                            <% }) %>
+                            <% } %>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<%- include('../../components/footer')  %>
+<%- include('../../base/end')  %>

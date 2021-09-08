@@ -1,0 +1,63 @@
+<%- include('../../base/head')  %>
+<%- include('../../components/navbar')  %>
+
+<div class="col-sm-4 mx-auto mt-5 mb-5">
+    <!-- Default form register -->
+    <form class="text-center border border-light p-5"
+        action="<%= typeof(action)!=='undefined'?action: '/admin/create-new-student' %>" method="POST">
+        <p class="h4 mb-5"><%= pageTitle %></p>
+        <% if(typeof(alert) !== 'undefined'){  %>
+        <div class="alert alert-<%= alert.type  %>  alert-dismissible fade show" role="alert">
+            <strong><%= alert.message  %> </strong>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <% } %>
+        <!--ID -->
+        <input name="studentID" value="<%= typeof(student) !== 'undefined' ? student.studentID : ''%>" ype="text"
+            class="form-control mb-4" placeholder="Mã Sinh Viên" required>
+        <!-- Name -->
+        <input name="name" type="text" class="form-control mb-4" placeholder="Họ Và Tên"
+            value="<%= typeof(student) !== 'undefined' ? student.name : ''%>" required>
+        <!-- Class -->
+        <!-- <input name="class" type="text" class="form-control mb-4" placeholder="Class"> -->
+        <!-- Date -->
+        <select class="custom-select  mb-3" name="subjectID">
+            <% if(typeof(student) !== 'undefined'){ %>
+            <% subjects.forEach((subject, index) => {%>
+            <option selected value="<%= subject.subjectID %>"><%= subject.name %> </option>
+            <% }) %>
+            <% }else{ %>
+            <option selected>Lựa chọn môn học</option>
+            <% if(typeof(subjects) !== 'undefined'){ %>
+            <% subjects.forEach(subject => { %>
+            <option value=<%= subject.subjectID %>><%= subject.name  %> </option>
+            <% }) %>
+            <% } %>
+            <% } %>
+        </select>
+        <input name="dateOfBirth" type="text" class="form-control mb-4" placeholder="------- Ngày Sinh -------"
+            onfocus="(this.type='date')" <% if(typeof(student) !== 'undefined'){ %> <% 
+                const date = new Date(student.dateOfBirth);
+                const day = date.getDate() < 10 ? `0${date.getDate()}` : date.getDate();
+                const month = date.getMonth() + 1 < 10 ? `0${date.getMonth() + 1}` : date.getMonth() + 1;
+                const year = date.getFullYear();
+                const dateStr = `${year}-${month}-${day}`;
+            %> value="<%=dateStr  %>" <% } %> required>
+        <!-- E-mail -->
+        <input name="email" type="email" class="form-control mb-4" placeholder="Email"
+            value="<%= typeof(student) !== 'undefined' ? student.email : ''%>" required>
+
+        <!-- Submit button -->
+
+        <% if(typeof(student) !== 'undefined' && typeof(alert) === 'undefined'){ %>
+        <button class="btn btn-warning btn-block my-4" type="submit">Cập Nhật</button>
+        <% }else{ %>
+        <button class="btn btn-info btn-block my-4" type="submit">Thêm Mới</button>
+        <% } %>
+    </form>
+    <!-- Default form register -->
+</div>
+<%- include('../../components/footer')  %>
+<%- include('../../base/end')  %>
