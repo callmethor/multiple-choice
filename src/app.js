@@ -2,9 +2,14 @@ const express = require('express')
 // const mongoose = require('mongoose');
 const path = require('path');
 const md5 = require('md5');
+const cors = require('cors');
+const cookieParser = require('cookie-parser');
 const app = express();
 
- const route = require('./routes');
+app.use(cors());
+app.use(cookieParser())
+
+const route = require('./routes');
 
 app.use(express.static(path.join(__dirname, 'public')));
 

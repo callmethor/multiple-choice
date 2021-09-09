@@ -1,8 +1,8 @@
 class AdminController {
     //[GET] Dashboard feature
 
-    index(req, res, next) {
-        res.render('admin/dashboard');
+    getDashboard(req, res, next) {
+        res.send('Admin');
     }
 }
 
