@@ -4,6 +4,7 @@ const path = require('path');
 const md5 = require('md5');
 const cors = require('cors');
 const cookieParser = require('cookie-parser');
+const session = require('express-session');
 const app = express();
 
 app.use(cors());

@@ -3,8 +3,6 @@ const findUserBy = require('../util/middleware/findUserBy.middleware');
 
 class UserController {
 
-   
-
     //[GET]homepage
 
     getHomepage = async (req, res, next) => {
