@@ -7,14 +7,6 @@ class UserController {
 
     //[GET]homepage
 
-    // getHomepage(req, res, next) {
-    //     Student.find({})
-    //         .then(students =>  res.render('pages', {
-    //             pageTitle: 'Home Page'
-    //         }))
-    //         .catch(next);
-    // }
-
     getHomepage = async (req, res, next) => {
         if (req.signedCookies.userID) {
             const user = await findUserBy.userID(req.signedCookies.userID);
