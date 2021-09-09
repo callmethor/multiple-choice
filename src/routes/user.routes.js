@@ -1,11 +1,14 @@
 const express = require('express');
 const router = express.Router();
-
+const middlewares = require('../util/middleware/authorization.middlware');
 const userController = require('../controllers/UserController');
 
 
 //get homepage 
-router.use('/', userController.getHomepage);
+router.get('/', userController.getHomepage);
+
+router.get('/login', userController.getLogin);
+router.post('/login', userController.postLogin)
 
 
 
