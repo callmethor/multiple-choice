@@ -2,6 +2,7 @@ const userRouter = require('./user.routes');
 const adminRouter = require('./admin.routes');
 const teacherRouter = require('./teacher.routes');
 const studentRouter = require('./student.routes');
+// const courseRouter = require('./course.routes');
 
 
 
@@ -11,9 +12,9 @@ function route(app){
     app.use('/users', userRouter);
 
     app.use('/admin', adminRouter);
-
     app.use('/teacher', teacherRouter);
     app.use('/student', studentRouter);
+    
 
     
     app.all('*', (req, res, next) => {

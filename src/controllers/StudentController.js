@@ -1,6 +1,7 @@
 const Student = require('../models/students.model')
 const Teacher = require('../models/teachers.model')
 const Admin = require('../models/admin.model')
+const Course = require('../models/course.model')
 const Subject = require('../models/subjects.model')
 const findUserBy = require('../util/middleware/findUserBy.middleware')
 const Question = require('../models/question.models')
@@ -9,7 +10,16 @@ const _ = require('lodash');
 
 class StudentController{
 
-    
+    getCourses = async (req, res, next) => {
+        Course.find({})
+        .then(courses => res.render('pages/courses', {
+            courses : courses,
+            pageTitle: 'Bài Giảng',
+        }))
+        .catch(next);   
+
+    }
+
     getSearchExam = async (req, res, next) => {
         res.render('pages/student/search-exam', {
             pageTitle: 'Sinh Viên| Tìm Kiếm Ca Thi',

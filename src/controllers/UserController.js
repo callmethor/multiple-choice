@@ -86,6 +86,7 @@ class UserController {
         }
     }
 
+
     getInfomation = async (req, res, next) => {
         let user = await findUserBy.userID(req.signedCookies.userID);
 
