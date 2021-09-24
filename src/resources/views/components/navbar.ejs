@@ -24,7 +24,7 @@
                     if(user.role === 'admin'){role='Quản Trị Viên'} %>
                     <% if(typeof(user.name) != 'undefined'){ %>
                     <% if(user.role==='student'){ %>
-
+                        
                     <% }else{ %>
                     <a class="nav-link white-text" href="/<%=user.role %>/dashboard ">Trang Quản Trị</i></a>
                     <% } %>

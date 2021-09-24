@@ -12,12 +12,12 @@ const Course = new Schema(
         image: { type: String },
         videoID: { type: String, required: true },
         level: { type: String },
-        slug: { type: String, slug: 'name', unique: true },
+        // slug: { type: String, slug: 'name', unique: true },
     },
-    {
-        _id: false,
-        timestamps: true,
-    },
+    // {
+    //     _id: false,
+    //     timestamps: true,
+    // },
 );
 //add plugin
 // mongoose.plugin(slug);

@@ -139,7 +139,7 @@ class StudentController{
     confirmExamGet = async (req, res, next) => {
         // const student = await findUserBy.userID(req.signedCookies.userID);
         // return res.status(404).send(student.score);
-        return res.send('Oke')
+        return res.send('Ok')
     }
 }
 
