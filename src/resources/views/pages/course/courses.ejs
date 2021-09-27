@@ -1,0 +1,35 @@
+<%- include('../../base/head')  %>
+<%- include('../../components/navbar')  %>
+<style>
+    .card-course-item {
+    margin-top: 16px;
+    margin-bottom: 16px;
+    }
+
+    .card-img-top {
+        max-height:200px;
+    }
+
+</style>   
+
+<div class="container mt-4">
+    <div class="row">
+        <% courses.forEach(function(course) { %>    
+        <div class="col-sm-6 col-lg-4">
+            <div class="card card-course-item">
+                <a href="/student/courses/<%=course.slug%> ">
+                <img class="card-img-top" src="<%= course.image %>" alt="<%= course.name %>"> 
+                </a>
+                <div class="card-body">
+                    <a href="/student/courses/<%= course.slug %> ">
+                    <h5 class="card-title"><%= course.name %></h5>
+                    </a>
+                    <p class="card-text"><%= course.description %></p>
+                </div>
+            </div>
+        </div>
+        <% }); %> 
+    </div>
+</div>
+<%- include('../../components/footer')  %>
+<%- include('../../base/end')  %> 
