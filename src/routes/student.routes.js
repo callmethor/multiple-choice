@@ -4,7 +4,9 @@ const adminController = require('../controllers/AdminController');
 const teacherController = require('../controllers/TeacherController');
 const studentController = require('../controllers/StudentController');
 
-router.get('/courses', studentController.getCourses);
+router.get('/courses', middlewares.restrictTo('student'), studentController.getCourses);
+router.get('/courses/:slug', middlewares.restrictTo('student'), studentController.showCourse);
+
 router.get('/search-exam', middlewares.restrictTo('student'), studentController.getSearchExam)
 router.post('/search-exam', middlewares.restrictTo('student'), studentController.postSearchExam, studentController.exam)
 

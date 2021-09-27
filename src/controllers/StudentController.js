@@ -12,12 +12,23 @@ class StudentController{
 
     getCourses = async (req, res, next) => {
         Course.find({})
-        .then(courses => res.render('pages/courses', {
+        .then(courses => res.render('pages/course/courses', {
             courses : courses,
             pageTitle: 'Bài Giảng',
         }))
         .catch(next);   
 
+    }
+
+    showCourse(req, res, next){
+        Course.findOne({slug: req.params.slug})
+            .then(course => {
+                res.render('pages/course/show',{
+                    course: course,
+                    pageTitle: 'Bài Giảng'
+                })
+            })
+            .catch(next);
     }
 
     getSearchExam = async (req, res, next) => {
