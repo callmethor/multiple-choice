@@ -6,18 +6,34 @@ const Schema = mongoose.Schema;
 
 const Course = new Schema(
     {
-        _id: { type: Number },
-        name: { type: String, required: true },
-        description: { type: String, maxLength: 600 },
-        image: { type: String },
-        videoID: { type: String, required: true },
-        level: { type: String },
-        slug: { type: String, slug: 'name', unique: true },
+        _id: { 
+            type: Number 
+        },
+        name: { 
+            type: String, required: true 
+        },
+        description: { 
+            type: String, maxLength: 600 
+        },
+        image: { 
+            type: String 
+        },
+        videoID: { 
+            type: String, required: true 
+        },
+        level: { 
+            type: String 
+        },
+        slug: { 
+            type: String, slug: 'name', unique: true 
+        }, 
+        subject: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Subject'
+        },
+
     },
-    // {
-    //     _id: false,
-    //     timestamps: true,
-    // },
+
 );
 //add plugin
 // mongoose.plugin(slug);

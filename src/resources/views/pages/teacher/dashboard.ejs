@@ -1,5 +1,7 @@
 <%- include('../../base/head')  %>
 <%- include('../../components/navbar')  %>
+ 
+
 <div class="container">
     <p class="h1 my-5 text-center font-weight-light">🎉 Giáo Viên/ Trang Quản Lý 🎉</p>
     <% if(typeof(alert) !== 'undefined'){  %>
@@ -11,8 +13,10 @@
             </button>
         </div>
     </div>
-    <% } %>
+    <% } %> 
+
     <div class="col-12 mx-auto mt-5 mb-5">
+
         <ul class="nav nav-tabs" id="myTab" role="tablist">
             <li class="nav-item" role="presentation">
                 <a class="nav-link active" id="home-tab" data-toggle="tab" href="#student" role="tab"
@@ -22,8 +26,15 @@
                 <a class="nav-link" id="contact-tab" data-toggle="tab" href="#question" role="tab"
                     aria-controls="contact" aria-selected="false">Câu Hỏi</a>
             </li>
+            <li class="nav-item" role="presentation">
+                <a class="nav-link" id="contact-tab" data-toggle="tab" href="#course" role="tab"
+                    aria-controls="contact" aria-selected="false">Bài Giảng</a>
+            </li>
         </ul>
+
         <div class="tab-content" id="myTabContent">
+        
+            <!-- danh sách điểm sinh viên  -->
             <div class="tab-pane fade show active" id="student" role="tabpanel" aria-labelledby="home-tab">
                 <div class="row my-3">
                     <h1 class="col text-center mt-2 mb-0">Danh Sách Sinh Viên</h1>
@@ -65,6 +76,8 @@
                     </table>
                 </div>
             </div>
+
+            <!-- danh sách câu hỏi -->
             <div class="tab-pane fade" id="question" role="tabpanel" aria-labelledby="contact-tab">
                 <div class="row my-3">
                     <h1 class="col text-center mt-2 mb-0">Danh Sách Câu Hỏi</h1>
@@ -151,6 +164,77 @@
                     </table>
                 </div>
             </div>
+
+          <!-- danh sách bài học    -->
+          <div class="tab-pane fade" id="course" role="tabpanel" aria-labelledby="contact-tab">
+            <div class="row my-3">
+                <h1 class="col text-center mt-2 mb-0">Danh Sách Bài Học</h1>
+                <div class="col-4">
+                    <div class="row">
+                        <a class="btn btn-outline-indigo waves-effect ml-3"
+                            href="/teacher/create-new-questions"><i class="fas fa-file-upload"></i> Thêm Từ File</a>
+                        <a class="btn btn-outline-success waves-effect ml-3"
+                            href="/teacher/create-new-question"><i class="far fa-keyboard"></i> Thêm</a>
+                    </div>
+                </div>
+                <div class="col-2 ml-auto">
+                    <div class="active-cyan-3 active-cyan-4 mb-4 mt-2">
+                        <input id="search-question-teacher" class="form-control" type="text"
+                            placeholder="Tìm Kiếm Bài Học" aria-label="Search Exam">
+                    </div>
+                </div>
+            </div>
+            <div class="col" style="overflow-y: scroll; max-height: 80vh;">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th scope="col">STT</th>
+                            <th scope="col">Tên Bài</th>
+                            <th scope="col">Chương</th>
+                            <th scope="col">Mức Độ</th>
+                            <th scope="col">Môn Học</th>
+                            <th scope="col">Ngày Tạo</th>
+                            <th scope="col">Chức Năng</th>
+                        </tr>
+                    </thead>
+                    <tbody id="table-content-course-teacher">
+                        <%courses.forEach((course, idx) => { %>
+                            <tr>
+                                <th><%=idx+1%></th>
+                                <td><%=course.name%></td>
+                                <td>1</td>
+                                <td><%=course.level%></td>
+                                <td><%= course.subject%></td>
+                                <td><%=course.createdAt%></td>
+                                <td style="width: 100px;">
+                                    <div class="row justify-content-center">
+                                        <form action="/teacher/edit-question" method="POST">
+                                            <input type="text" name="question" value="0" hidden>
+                                            <button type="submit" class="text-warning bg-transparent border-0"
+                                                title="Edit Question">
+                                                <i class="far fa-edit"></i>
+                                            </button>
+                                        </form>
+                                        <!-- <form action="/teacher/delete-question" method="POST"> -->
+                                        <button type=" button"
+                                            class="text-danger bg-transparent border-0" title="Delete Question">
+                                            <i class="far fa-trash-alt"></i>
+                                        </button>
+                                        <!-- </form> -->
+                                    </div>
+                                                   
+                            </tr>
+                            
+                        <%})%>
+                    
+                          
+                      
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+
         </div>
     </div>
 </div>

@@ -15,10 +15,10 @@
                 <%= course.description %>
             </p>
         </div>       
-<!-- 
+
         <div class="col-lg-3 mb-4" style="padding-top: 46.4px">
             <div class="list-group">
-                <a href="/student/courses/<%=course.slug%>"
+                <!-- <a href="/student/courses/<%=course.slug%>"
                     class="list-group-item list-group-item-action flex-column align-items-start active">
                     <div class="d-flex w-100 justify-content-between">
                         <h5 class="mb-1">
@@ -26,8 +26,19 @@
                         </h5>
                     </div>
                     <p class="mb-1"><%= course.description  %> </p>
-                </a>
-            </div> -->
+                </a> -->
+                <% relatedCourses.forEach((course, index) => { %> 
+                    <p><%= course.name %></p>
+                <%})  %> 
+                <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+                    <div class="d-flex w-100 justify-content-between">
+                      <h5 class="mb-1">List group item heading</h5>
+                      <small class="text-muted">3 days ago</small>
+                    </div>
+                    <p class="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
+                    <small class="text-muted">Donec id elit non mi porta.</small>
+                  </a>
+            </div>
         </div>
     </div>
 </div>

@@ -29,4 +29,6 @@ router.post('/delete-question', middlewares.restrictTo('teacher', 'admin'), teac
 router.post('/upload-questions', middlewares.restrictTo('teacher'), upload.single('file-question'), teacherController.postUploadFileQuestions)
 router.get('/get-all-question', middlewares.restrictTo('teacher'), teacherController.getAllQuestion)
 router.get('/get-all-student', middlewares.restrictTo('teacher'), teacherController.getAllStudent)
+router.get('/get-all-courses', middlewares.restrictTo('teacher'), teacherController.getAllCourse)
+
 module.exports = router;
