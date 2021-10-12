@@ -8,27 +8,39 @@ const Question = require('../models/question.models')
 const Exam = require('../models/exam.model')
 const _ = require('lodash');
 
-class StudentController{
+class StudentController {
 
     getCourses = async (req, res, next) => {
         Course.find({})
-        .then(courses => res.render('pages/course/courses', {
-            courses : courses,
-            pageTitle: 'Bài Giảng',
-        }))
-        .catch(next);   
+            .then(courses => res.render('pages/course/courses', {
+                courses: courses,
+                pageTitle: 'Bài Giảng',
+            }))
+            .catch(next);
 
     }
 
-    showCourse(req, res, next){
-        Course.findOne({slug: req.params.slug})
-            .then(course => {
-                res.render('pages/course/show',{
+    showCourse(req, res, next) {
+        Promise.all([Course.findOne({ slug: req.params.slug }), Course.find({}).limit(3).sort('asc')])
+            .then(([course, relatedCourse]) => {
+                console.log({ course, relatedCourse })
+                res.render('pages/course/show', {
                     course: course,
-                    pageTitle: 'Bài Giảng'
+                    pageTitle: 'Bài Giảng',
+                    relatedCourses: relatedCourse
                 })
             })
             .catch(next);
+
+
+        // .then(course => {
+        //     res.render('pages/course/show',{
+        //         course: course,
+        //         pageTitle: 'Bài Giảng',
+        //         relatedCourses: []
+        //     })
+        // })
+        // .catch(next);
     }
 
     getSearchExam = async (req, res, next) => {
@@ -37,10 +49,10 @@ class StudentController{
             user: await findUserBy.userID(req.signedCookies.userID)
         });
     }
-    
+
     postSearchExam = async (req, res, next) => {
         const student = await Student.findOne({ studentID: req.signedCookies.userID }).populate('subject');
-    
+
         const exam = await Exam.findOne({ examID: req.body.search.trim() }).populate('subject');
         if (!exam) return res.render('pages/student/search-exam', {
             pageTitle: 'Sinh Viên| Tìm Kiếm Ca Thi',
@@ -101,7 +113,7 @@ class StudentController{
             next();
         }
     }
-    
+
     exam = async (req, res, next) => {
         const exam = res.locals.exam;
         const student = res.locals.student;
@@ -116,7 +128,7 @@ class StudentController{
             student: student
         });
     }
-    
+
     confirmExam = async (req, res, next) => {
         let score = 0;
         for (const q in { ...req.body }) {
@@ -153,10 +165,10 @@ class StudentController{
                 score: score
             });
         }
-    
-    
+
+
     }
-    
+
     confirmExamGet = async (req, res, next) => {
         // const student = await findUserBy.userID(req.signedCookies.userID);
         // return res.status(404).send(student.score);

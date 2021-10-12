@@ -2,6 +2,7 @@ const Student = require('../models/students.model')
 const Teacher = require('../models/teachers.model')
 const Subject = require('../models/subjects.model')
 const Question = require('../models/question.models')
+const Course = require('../models/course.model');
 const findUserBy = require('../util/middleware/findUserBy.middleware')
 const Exam = require('../models/exam.model');
 const fs = require('fs');
