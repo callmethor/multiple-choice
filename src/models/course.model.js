@@ -1,14 +1,14 @@
 const mongoose = require('mongoose');
-// const slug = require('mongoose-slug-generator');
+const slug = require('mongoose-slug-generator');
 // const mongooseDelete = require('mongoose-delete');
 // const AutoIncrement = require('mongoose-sequence')(mongoose);
 const Schema = mongoose.Schema;
 
 const Course = new Schema(
     {
-        _id: { 
-            type: Number 
-        },
+        // _id: { 
+        //     type: Number 
+        // },
         name: { 
             type: String, required: true 
         },
@@ -32,11 +32,13 @@ const Course = new Schema(
             ref: 'Subject'
         },
 
-    },
+    },{
+        timestamps: true, 
+    }
 
 );
 //add plugin
-// mongoose.plugin(slug);
+mongoose.plugin(slug);
 
 // Course.plugin(AutoIncrement);
 

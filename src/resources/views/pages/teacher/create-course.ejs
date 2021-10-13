@@ -1,0 +1,71 @@
+<%- include('../../base/head') %>
+<%- include('../../components/navbar') %>
+
+<div class="mt-4 col-sm-6 mx-auto mt-5 mb-5">
+    <form class="border border-light p-5" method="POST" action="/teacher/store-course">
+        <p class="h4 mb-5 text-center">Giáo Viên | Thêm Bài Học</p>
+        <% if(typeof(alert) !== 'undefined'){  %>
+            <div class="alert alert-<%= alert.type  %>  alert-dismissible fade show" role="alert">
+                <strong><%= alert.message  %> </strong>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+         <% } %>
+        
+            <div class="form-group">
+                <label for="nane">Tên Bài Học</label>
+                <input type="text" class="form-control" id="name" name="name">
+            </div>
+
+            <div class="form-group">
+                <label for="description">Mô Tả</label>
+                <input type="text" class="form-control" id="description" name="description">
+            </div>
+
+            <div class="form-group">
+                <label for="videoID">Video ID</label>
+                <input type="text" class="form-control" id="videoID" name="videoID">
+            </div>
+
+            <div class="form-group">
+                <label for="videoID">Lựa Chọn Trình Độ</label>
+                <select class="custom-select custom-select-md mb-3" name="level" required>
+                    <% if(typeof(course) !== 'undefined') { %>
+                    <% 
+                            const levels = ['easy', 'normal', 'hard'];
+                            const level = course.level;
+                            levels.splice(levels.indexOf(level), 1);
+                    %>
+                    <% if(level === 'easy'){ %>
+                    <option value="<%= level  %> ">Dễ</option>
+                    <% } %>
+                    <% if(level === 'normal'){ %>
+                    <option value="<%= level  %> ">Trung Bình</option>
+                    <% } %>
+                    <% if(level === 'hard'){ %>
+                    <option value="<%= level  %> ">Khó</option>
+                    <% } %>
+                    <% levels.forEach(e => { %>
+                    <% if(e =='easy'){ %>
+                    <option value="<%= level  %> ">Dễ</option>
+                    <% } %>
+                    <% if(e =='normal'){ %>
+                    <option value="<%= level  %> ">Trung Bình</option>
+                    <% } %>
+                    <% if(e =='hard'){ %>
+                    <option value="<%= level  %> ">Khó</option>
+                    <% } %>
+                    <% }) %>
+                    <% }else{ %>
+                    <option value="easy">Dễ</option>
+                    <option value="normal">Trung Bình</option>
+                    <option value="hard">Khó</option>
+                    <% } %>
+                </select>
+            </div>
+            <button class="btn btn-info btn-block my-4" type="submit">Thêm Mới</button>
+    </form>
+</div>
+<%- include('../../components/footer') %>
+<%- include('../../base/end') %>

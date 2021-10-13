@@ -19,6 +19,11 @@ router.get('/dashboard', middlewares.restrictTo('teacher'), teacherController.ge
 router.get('/create-new-question', middlewares.restrictTo('admin', 'teacher'), teacherController.getCreateNewQuestion)
 router.post('/create-new-question', middlewares.restrictTo('teacher'), teacherController.posttCreateNewQuestion)
 
+router.get('/create-course', middlewares.restrictTo('teacher'), teacherController.getCreateNewCourse)
+router.post('/store-course', middlewares.restrictTo('teacher'), teacherController.postStoreCourse)
+
+
+
 router.get('/create-new-questions', middlewares.restrictTo('admin', 'teacher'), teacherController.getCreateNewQuestions)
 
 router.post('/edit-question', middlewares.restrictTo('teacher', 'admin'), teacherController.postEditQuestion)

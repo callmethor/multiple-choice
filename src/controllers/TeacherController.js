@@ -65,6 +65,30 @@ class TeacherController {
             user: await findUserBy.userID(req.signedCookies.userID)
         })
     }
+
+
+    getCreateNewCourse = async (req, res, next) => {
+        res.render('pages/teacher/create-course', { 
+            pageTitle: 'Teacher| Thêm Bài Học 🎉',
+            user: await findUserBy.userID(req.signedCookies.userID),
+             alert: {
+                type: 'success',
+                message: 'Tạo mới câu hỏi thành công 🎉!'
+            }
+        })
+    }
+
+
+    postStoreCourse = async (req, res, next) => {
+        const formData = req.body;
+        formData.image= `https://img.youtube.com/vi/${req.body.videoID}/sddefault.jpg`;
+        const course = new Course(formData);
+        course.save()
+            .then(()=> res.redirect('/teacher/create-course'))
+            .catch(next);
+
+    }
+
     // * UPDATE AND DELETE QUESTION feature!
 
     postDeleteQuestion = async (req, res, next) => {

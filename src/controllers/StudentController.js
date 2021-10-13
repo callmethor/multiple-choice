@@ -21,9 +21,8 @@ class StudentController {
     }
 
     showCourse(req, res, next) {
-        Promise.all([Course.findOne({ slug: req.params.slug }), Course.find({}).limit(3).sort('asc')])
+        Promise.all([Course.findOne({ slug: req.params.slug }), Course.find({}).limit(2).sort('asc')])
             .then(([course, relatedCourse]) => {
-                console.log({ course, relatedCourse })
                 res.render('pages/course/show', {
                     course: course,
                     pageTitle: 'Bài Giảng',

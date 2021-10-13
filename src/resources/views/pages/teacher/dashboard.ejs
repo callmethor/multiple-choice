@@ -174,7 +174,7 @@
                         <a class="btn btn-outline-indigo waves-effect ml-3"
                             href="/teacher/create-new-questions"><i class="fas fa-file-upload"></i> Thêm Từ File</a>
                         <a class="btn btn-outline-success waves-effect ml-3"
-                            href="/teacher/create-new-question"><i class="far fa-keyboard"></i> Thêm</a>
+                            href="/teacher/create-course"><i class="far fa-keyboard"></i> Thêm</a>
                     </div>
                 </div>
                 <div class="col-2 ml-auto">
@@ -216,10 +216,10 @@
                                             </button>
                                         </form>
                                         <!-- <form action="/teacher/delete-question" method="POST"> -->
-                                        <button type=" button"
-                                            class="text-danger bg-transparent border-0" title="Delete Question">
-                                            <i class="far fa-trash-alt"></i>
-                                        </button>
+                                            <button onclick="deleteQuestionByID(`<%=course._id %>`)" type=" button"
+                                                class="text-danger bg-transparent border-0" title="Delete Course">
+                                                <i class="far fa-trash-alt"></i>
+                                            </button>
                                         <!-- </form> -->
                                     </div>
                                                    
