@@ -128,7 +128,7 @@
                                 <% } %>
                                 <td><%=typeof(question.teacher.subject) !== 'undefined' ? question.teacher.subject.name: '' %>
                                 </td>
-
+                                
                                 <% 
                                     const date = new Date(question.createdDate);
                                     const day = date.getDate() < 10 ? `0${date.getDate()}` : date.getDate();
@@ -203,15 +203,35 @@
                                 <th><%=idx+1%></th>
                                 <td><%=course.name%></td>
                                 <td>1</td>
-                                <td><%=course.level%></td>
+                                <% if(course.level === 'easy'){ %>
+                                    <td class="text-center">Dễ </td>
+                                    <% } %>
+                                    <% if(course.level === 'normal'){ %>
+                                    <td class="text-center">Trung Bình </td>
+                                    <% } %>
+                                    <% if(course.level === 'hard'){ %>
+                                    <td class="text-center">Khó </td>
+                                    <% } %>
                                 <td><%= course.subject%></td>
-                                <td><%=course.createdAt%></td>
+
+                                <% 
+                                const date = new Date(course.createdAt);
+                                const day = date.getDate() < 10 ? `0${date.getDate()}` : date.getDate();
+                                const month = date.getMonth() + 1 < 10 ? `0${date.getMonth() + 1}` : date.getMonth() + 1;
+                                const year = date.getFullYear();
+                                const hours = date.getHours() + 1 < 10 ? `0${date.getHours() + 1}` : date.getHours() + 1;
+                                const minutes = date.getMinutes() + 1 < 10 ? `0${date.getMinutes() + 1}` :date.getMinutes() + 1;
+                                const seconds = date.getSeconds() + 1 < 10 ? `0${date.getSeconds() + 1}` :date.getSeconds() + 1;
+                                const dateStr = `${day}-${month}-${year} | ${hours}:${minutes}:${seconds}`;
+                                 %>
+                                <td><%= dateStr  %> </td>
+
                                 <td style="width: 100px;">
                                     <div class="row justify-content-center">
-                                        <form action="/teacher/edit-question" method="POST">
+                                        <form action="/teacher/edit-course/<%= course._id%>" method="POST">
                                             <input type="text" name="question" value="0" hidden>
                                             <button type="submit" class="text-warning bg-transparent border-0"
-                                                title="Edit Question">
+                                                title="Edit Course">
                                                 <i class="far fa-edit"></i>
                                             </button>
                                         </form>
@@ -221,8 +241,7 @@
                                                 <i class="far fa-trash-alt"></i>
                                             </button>
                                         <!-- </form> -->
-                                    </div>
-                                                   
+                                    </div>                              
                             </tr>
                             
                         <%})%>

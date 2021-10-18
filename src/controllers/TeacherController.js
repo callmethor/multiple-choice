@@ -66,7 +66,7 @@ class TeacherController {
         })
     }
 
-
+    // Update and delete course
     getCreateNewCourse = async (req, res, next) => {
         res.render('pages/teacher/create-course', { 
             pageTitle: 'Teacher| Thêm Bài Học 🎉',
@@ -86,6 +86,18 @@ class TeacherController {
         course.save()
             .then(()=> res.redirect('/teacher/create-course'))
             .catch(next);
+
+    }
+
+    //[GET] /teacher/edit-course
+    editCourse = async (req, res, next) => {
+        Course.findById(req.params.id)
+        .then(course => res.render('pages/teacher/edit-course',
+            {   
+                course,
+                pageTitle: 'Teacher| Thêm Câu Hỏi 🎉',
+            }))
+        .catch(next)
 
     }
 
@@ -215,6 +227,7 @@ class TeacherController {
             console.log(err)
         }
     }
+
 
 }
 

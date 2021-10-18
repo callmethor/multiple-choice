@@ -15,7 +15,8 @@ const subjectSchema = new Schema({
         type: Date,
         default: new Date()
     }
-});
+}
+);
 
 const Subject = mongoose.model('Subject', subjectSchema);
 module.exports = Subject;

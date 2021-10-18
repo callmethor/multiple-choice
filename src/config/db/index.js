@@ -5,7 +5,7 @@ async function connect(){
         await mongoose.connect('mongodb://localhost/multiple-choice',{
 
         });
-        console.log('connect successful');
+        console.log('connect database successful');
     }catch(error) {
         console.log('error connecting')
     }

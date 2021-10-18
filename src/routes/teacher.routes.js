@@ -21,6 +21,7 @@ router.post('/create-new-question', middlewares.restrictTo('teacher'), teacherCo
 
 router.get('/create-course', middlewares.restrictTo('teacher'), teacherController.getCreateNewCourse)
 router.post('/store-course', middlewares.restrictTo('teacher'), teacherController.postStoreCourse)
+router.post('/edit-course/:id', middlewares.restrictTo('teacher'), teacherController.editCourse)
 
 
 

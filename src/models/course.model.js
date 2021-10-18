@@ -27,12 +27,17 @@ const Course = new Schema(
         slug: { 
             type: String, slug: 'name', unique: true 
         }, 
+        // teacher: {
+        //     type: mongoose.Types.ObjectId,
+        //     ref: 'Teacher'
+        // },
         subject: {
             type: mongoose.Schema.Types.ObjectId,
             ref: 'Subject'
         },
-
-    },{
+       
+    },
+    {
         timestamps: true, 
     }
 
