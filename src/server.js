@@ -8,17 +8,6 @@ const PORT = process.env.PORT || 3000;
 
 
 
-// mongoose.connect(process.env.DATABASE_CONNECTION.replace('<password>', process.env.DATABASE_PASSWORD).replace('<dbname>', process.env.DATABASE_NAME), {
-//     useNewUrlParser: true,
-//     useUnifiedTopology: true,
-//     useCreateIndex: true,
-//     useFindAndModify: false
-// }, (err) => {
-//     console.log({err});
-// })
-
-
-
 // Admin.create({
 //     adminID: 'admin',
 //     name: 'DHTL',
