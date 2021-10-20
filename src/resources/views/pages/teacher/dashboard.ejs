@@ -167,7 +167,7 @@
 
           <!-- danh sách bài học    -->
           <div class="tab-pane fade" id="course" role="tabpanel" aria-labelledby="contact-tab">
-            <div class="row my-3">
+             <div class="row my-3">
                 <h1 class="col text-center mt-2 mb-0">Danh Sách Bài Học</h1>
                 <div class="col-4">
                     <div class="row">
@@ -183,9 +183,9 @@
                             placeholder="Tìm Kiếm Bài Học" aria-label="Search Exam">
                     </div>
                 </div>
-            </div>
-            <div class="col" style="overflow-y: scroll; max-height: 80vh;">
-                <table class="table table-striped">
+             </div>
+             <div class="col" style="overflow-y: scroll; max-height: 80vh;">
+                 <table class="table table-striped">
                     <thead>
                         <tr>
                             <th scope="col">STT</th>
@@ -234,7 +234,7 @@
                                             </button>
                                         </form>
                                         <!-- <form action="/teacher/delete-question" method="POST"> -->
-                                            <button onclick="deleteQuestionByID(`<%=course._id %>`)" type=" button"
+                                            <button onclick="deleteCourseByID(`<%=course._id %>`)" type="button"
                                                 class="text-danger bg-transparent border-0" title="Delete Course">
                                                 <i class="far fa-trash-alt"></i>
                                             </button>
@@ -243,14 +243,11 @@
                             </tr>
                             
                         <%})%>
-                    
-                          
-                      
+                                            
                     </tbody>
                 </table>
+              </div>
             </div>
-        </div>
-
 
         </div>
     </div>

@@ -101,12 +101,21 @@ class TeacherController {
 
     }
 
-
     updateCourse (req, res, next){
         Course.updateOne({ _id: req.params.id }, req.body)
             .then(() => res.redirect('/teacher/dashboard'))
             .catch(next)
     }
+
+    postDeleteCourse = async (req, res, next) => {
+        try {
+            await Course.findOneAndDelete({ _id: req.body.course })
+            res.redirect('/teacher/dashboard');
+        } catch (err) {
+            console.log(err)
+        }
+    }
+
 
     // * UPDATE AND DELETE QUESTION feature!
 

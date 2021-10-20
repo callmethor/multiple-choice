@@ -44,6 +44,10 @@ router.post('/update-question', middlewares.restrictTo('teacher', 'admin'), admi
 router.post('/delete-question', middlewares.restrictTo('teacher', 'admin'), adminController.postDeleteQuestion)
 
 
+router.post('/delete-course', middlewares.restrictTo('teacher', 'admin'), adminController.postDeleteCourse)
+
+
+
 router.get('/create-new-exam', middlewares.restrictTo('admin'), adminController.getCreateNewExam);
 router.post('/create-new-exam', middlewares.restrictTo('admin'), adminController.postCreateNewExam);
 router.post('/delete-exam', middlewares.restrictTo('admin'), adminController.postDeleteExam);

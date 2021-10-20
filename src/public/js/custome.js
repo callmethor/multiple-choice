@@ -14,6 +14,24 @@ function deleteQuestionByID(userID) {
             });
     }
 }
+
+function deleteCourseByID(userID) {
+    const confirmDelete = confirm('Bạn có chắc chắn muốn xóa?');
+    if (confirmDelete) {
+        console.log('Xóa đi: /', userID);
+        axios.post('/admin/delete-course', {
+            course: userID
+        })
+            .then(function (response) {
+                window.location.reload();
+                console.log(response);
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+    }
+}
+
 function deleteStudentByID(studentID) {
     console.log('Đã ở đây')
     const confirmDelete = confirm('Bạn có chắc chắn muốn xóa?');

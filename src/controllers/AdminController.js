@@ -321,6 +321,15 @@ class AdminController {
             console.log(err)
         }
     }
+
+    postDeleteCourse = async (req, res, next) => {
+        try {
+            await Course.findOneAndDelete({ _id: req.body.course })
+            res.redirect('/admin/dashboard');
+        } catch (err) {
+            console.log(err)
+        }
+    }
     
     postEditQuestion = async (req, res, next) => {
         try {

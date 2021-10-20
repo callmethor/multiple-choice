@@ -33,7 +33,8 @@ router.get('/create-new-questions', middlewares.restrictTo('admin', 'teacher'), 
 router.post('/edit-question', middlewares.restrictTo('teacher', 'admin'), teacherController.postEditQuestion)
 router.post('/update-question', middlewares.restrictTo('teacher', 'admin'), teacherController.postUpdateQuestion)
 router.post('/delete-question', middlewares.restrictTo('teacher', 'admin'), teacherController.postDeleteQuestion)
-// router.post('/delete-question', middlewares.restrictTo('teacher', 'admin'), teacherController.postDeleteQuestion)
+
+router.post('/delete-course', middlewares.restrictTo('teacher', 'admin'), teacherController.postDeleteCourse)
 
 router.post('/upload-questions', middlewares.restrictTo('teacher'), upload.single('file-question'), teacherController.postUploadFileQuestions)
 router.get('/get-all-question', middlewares.restrictTo('teacher'), teacherController.getAllQuestion)
