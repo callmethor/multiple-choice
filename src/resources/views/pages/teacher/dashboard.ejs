@@ -190,7 +190,6 @@
                         <tr>
                             <th scope="col">STT</th>
                             <th scope="col">Tên Bài</th>
-                            <th scope="col">Chương</th>
                             <th scope="col">Mức Độ</th>
                             <th scope="col">Môn Học</th>
                             <th scope="col">Ngày Tạo</th>
@@ -202,7 +201,6 @@
                             <tr>
                                 <th><%=idx+1%></th>
                                 <td><%=course.name%></td>
-                                <td>1</td>
                                 <% if(course.level === 'easy'){ %>
                                     <td class="text-center">Dễ </td>
                                     <% } %>
@@ -212,7 +210,7 @@
                                     <% if(course.level === 'hard'){ %>
                                     <td class="text-center">Khó </td>
                                     <% } %>
-                                <td><%= course.subject%></td>
+                                <td>Lịch Sử</td>
 
                                 <% 
                                 const date = new Date(course.createdAt);
