@@ -15,12 +15,12 @@
         
             <div class="form-group">
                 <label for="nane">Tên Bài Học</label>
-                <input type="text" class="form-control" id="name" name="name">
+                <textarea class="form-control" id="name" name="name"></textarea>
             </div>
 
             <div class="form-group">
                 <label for="description">Mô Tả</label>
-                <input type="text" class="form-control" id="description" name="description">
+                <textarea class="form-control" id="description" name="description"></textarea>
             </div>
 
             <div class="form-group">
@@ -35,7 +35,7 @@
                     <% 
                             const levels = ['easy', 'normal', 'hard'];
                             const level = course.level;
-                            levels.splice(levels.indexOf(level), 1);
+                            levels.splice(levels.indexOf(level), 0);
                     %>
                     <% if(level === 'easy'){ %>
                     <option value="<%= level  %> ">Dễ</option>

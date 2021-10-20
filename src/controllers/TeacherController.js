@@ -71,10 +71,10 @@ class TeacherController {
         res.render('pages/teacher/create-course', { 
             pageTitle: 'Teacher| Thêm Bài Học 🎉',
             user: await findUserBy.userID(req.signedCookies.userID),
-             alert: {
-                type: 'success',
-                message: 'Tạo mới câu hỏi thành công 🎉!'
-            }
+            //  alert: {
+            //     type: 'success',
+            //     message: 'Tạo mới câu hỏi thành công 🎉!'
+            // }
         })
     }
 
@@ -99,6 +99,13 @@ class TeacherController {
             }))
         .catch(next)
 
+    }
+
+
+    updateCourse (req, res, next){
+        Course.updateOne({ _id: req.params.id }, req.body)
+            .then(() => res.redirect('/teacher/dashboard'))
+            .catch(next)
     }
 
     // * UPDATE AND DELETE QUESTION feature!
