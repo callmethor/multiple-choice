@@ -31,15 +31,6 @@ class StudentController {
             })
             .catch(next);
 
-
-        // .then(course => {
-        //     res.render('pages/course/show',{
-        //         course: course,
-        //         pageTitle: 'Bài Giảng',
-        //         relatedCourses: []
-        //     })
-        // })
-        // .catch(next);
     }
 
     getSearchExam = async (req, res, next) => {
