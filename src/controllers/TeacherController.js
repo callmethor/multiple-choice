@@ -165,6 +165,7 @@ class TeacherController {
             const teacher = await findUserBy.userID(req.signedCookies.userID);
             const user = await findUserBy.userID(req.signedCookies.userID)
             const students = await Student.find();
+            const courses = await Course.find();
             let questions = await Question.find({ teacher: (await findUserBy.userID(req.signedCookies.userID))._id }).sort('-createdDate')
             fs.createReadStream(path)
                 .pipe(csv())
@@ -184,10 +185,11 @@ class TeacherController {
                                 }
                             }),
                             students: students,
+                            courses: courses,
                             alert: {
                                 type: 'success',
                                 message: 'Upload câu hỏi thành công 🎉!'
-                            }
+                            },
                         })
                     } catch (error) {
 
@@ -196,6 +198,7 @@ class TeacherController {
                             user: user,
                             questions: questions,
                             students: students,
+                            courses: courses,
                             alert: {
                                 type: 'danger',
                                 message: 'Định dạng file không được hỗ trợ!'

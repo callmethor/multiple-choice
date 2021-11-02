@@ -460,7 +460,7 @@ class AdminController {
                     } catch (error) {
     
                         res.render('pages/admin/dashboard', {
-                            pageTitle: 'Upload sinh viên khồng thành công!',
+                            pageTitle: 'Upload sinh viên không thành công!',
                             user: user,
                             questions: questions,
                             teachers: teachers,
