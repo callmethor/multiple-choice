@@ -440,38 +440,70 @@ class AdminController {
             }).sort('-createdDate');
             const exams = await Exam.find().populate('subject').sort('-createdDate');
             fs.createReadStream(path)
-                .pipe(csv())
+                .pipe(csv({}))
                 .on('data', data => result.push(data))
                 .on('end', async () => {
-                    try {
-                        await Student.insertMany(result);
-                        res.render('pages/admin/dashboard', {
-                            pageTitle: 'Upload sinh viên thành công!',
+                    console.log(result);
+                    Student.insertMany(result)
+                    .then(function(){
+                        console.log("Data inserted")  // Success
+                        res.render('pages/admin/dashboard',{
+                            pageTitle: '🎑 Quản trị viên | Dashboard',
                             user: user,
-                            questions: questions,
+                            students: students,
                             teachers: teachers,
-                            students: await Student.find().populate('subject'),
+                            questions: questions,
                             exams: exams,
                             alert: {
                                 type: 'success',
-                                message: 'Upload sinh viên thành công 🎉!'
+                                message: 'Tải lên danh sách sinh viên thành công 🎉!'
                             }
                         })
-                    } catch (error) {
-    
-                        res.render('pages/admin/dashboard', {
-                            pageTitle: 'Upload sinh viên không thành công!',
+                    })
+                    .catch(function(error){
+                        console.log(error)      // Failure
+                        res.render('pages/admin/dashboard',{
+                            pageTitle: '🎑 Quản trị viên | Dashboard',
                             user: user,
-                            questions: questions,
+                            students: students,
                             teachers: teachers,
-                            students: await Student.find().populate('subject'),
+                            questions: questions,
                             exams: exams,
                             alert: {
                                 type: 'danger',
-                                message: 'Định dạng file không được hỗ trợ! !'
+                                message: 'Tải lên danh sách sinh viên không thành công!'
                             }
                         })
-                    }
+                    });
+                //     try {
+                //         await Student.insertMany(result);
+                //         res.render('pages/admin/dashboard', {
+                //             pageTitle: 'Upload sinh viên thành công!',
+                //             user: user,
+                //             questions: questions,
+                //             teachers: teachers,
+                //             students: await Student.find().populate('subject'),
+                //             exams: exams,
+                //             alert: {
+                //                 type: 'success',
+                //                 message: 'Upload sinh viên thành công 🎉!'
+                //             }
+                //         })
+                //     } catch (error) {
+    
+                //         res.render('pages/admin/dashboard', {
+                //             pageTitle: 'Upload sinh viên không thành công!',
+                //             user: user,
+                //             questions: questions,
+                //             teachers: teachers,
+                //             students: await Student.find().populate('subject'),
+                //             exams: exams,
+                //             alert: {
+                //                 type: 'danger',
+                //                 message: 'Định dạng file không được hỗ trợ! !'
+                //             }
+                //         })
+                //     }
                 })
         } catch (err) {
             console.log('ERROR:', err);
