@@ -36,6 +36,10 @@ router.post('/delete-question', middlewares.restrictTo('teacher', 'admin'), teac
 
 router.post('/delete-course', middlewares.restrictTo('teacher', 'admin'), teacherController.postDeleteCourse)
 
+router.get('/create-new-courses', middlewares.restrictTo('admin', 'teacher'), teacherController.getCreateNewCourses)
+router.post('/upload-courses', middlewares.restrictTo('teacher'), upload.single('file-courses'), teacherController.postUploadCourses);
+
+
 router.post('/upload-questions', middlewares.restrictTo('teacher'), upload.single('file-question'), teacherController.postUploadFileQuestions)
 router.get('/get-all-question', middlewares.restrictTo('teacher'), teacherController.getAllQuestion)
 router.get('/get-all-student', middlewares.restrictTo('teacher'), teacherController.getAllStudent)
