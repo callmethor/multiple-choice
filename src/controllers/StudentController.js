@@ -11,22 +11,26 @@ const _ = require('lodash');
 class StudentController {
 
     getCourses = async (req, res, next) => {
+        const user = await findUserBy.userID(req.signedCookies.userID)
         Course.find({})
             .then(courses => res.render('pages/course/courses', {
                 courses: courses,
                 pageTitle: 'Bài Giảng',
+                user: user,
             }))
             .catch(next);
 
     }
 
-    showCourse(req, res, next) {
+    showCourse = async (req, res, next) => {
+        const user = await findUserBy.userID(req.signedCookies.userID)
         Promise.all([Course.findOne({ slug: req.params.slug }), Course.find({}).limit(2).sort('asc')])
             .then(([course, relatedCourse]) => {
                 res.render('pages/course/show', {
                     course: course,
                     pageTitle: 'Bài Giảng',
-                    relatedCourses: relatedCourse
+                    relatedCourses: relatedCourse,
+                    user: user,
                 })
             })
             .catch(next);
@@ -113,7 +117,7 @@ class StudentController {
         res.render('pages/student/exam', {
             pageTitle: 'Sinh Viên| Làm Bài Thi',
             user: await findUserBy.userID(req.signedCookies.userID),
-            questions: questions.filter((q, i) => i < 10),
+            questions: questions.filter((q, i) => i < 15),
             exam: exam,
             student: student
         });
