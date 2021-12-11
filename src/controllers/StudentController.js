@@ -80,17 +80,19 @@ class StudentController {
                     search: req.body.search || 'Xin lỗi thao tác không hợp lệ!'
                 });
             }
-            if (student.subject.subjectID !== exam.subject.subjectID) {
-                return res.render('pages/student/search-exam', {
-                    pageTitle: 'Sinh Viên| Tìm Kiếm Ca Thi',
-                    user: await findUserBy.userID(req.signedCookies.userID),
-                    alert: {
-                        type: 'danger',
-                        message: 'Xin lỗi bạn không có quyền thi môn này do bạn không học môn này!!'
-                    },
-                    search: req.body.search
-                })
-            }
+
+            /* Không cho thi môn khác nếu không học môn đó  */
+            // if (student.subject.subjectID !== exam.subject.subjectID) {
+            //     return res.render('pages/student/search-exam', {
+            //         pageTitle: 'Sinh Viên| Tìm Kiếm Ca Thi',
+            //         user: await findUserBy.userID(req.signedCookies.userID),
+            //         alert: {
+            //             type: 'danger',
+            //             message: 'Xin lỗi bạn không có quyền thi môn này do bạn không học môn này!!'
+            //         },
+            //         search: req.body.search
+            //     })
+            // }
             if (student.score) {
                 return res.render('pages/student/search-exam', {
                     pageTitle: 'Sinh Viên| Tìm Kiếm Ca Thi',
@@ -117,7 +119,7 @@ class StudentController {
         res.render('pages/student/exam', {
             pageTitle: 'Sinh Viên| Làm Bài Thi',
             user: await findUserBy.userID(req.signedCookies.userID),
-            questions: questions.filter((q, i) => i < 15),
+            questions: questions.filter((q, i) => i < 20),
             exam: exam,
             student: student
         });
@@ -144,9 +146,13 @@ class StudentController {
             }
         }
         let student = await findUserBy.userID(req.signedCookies.userID);
-        // console.log(student);
-        if (student.score >= 0) {
-            return res.send('<h1>Xin lỗi bạn đã thi môn này rồi, thao tác này không hợp lệ!</h1>');
+
+        /* Không cho thi lại, nếu thi rồi thì score sẽ >= 0 */
+        // if(student.score >= 0){
+        //     return res.send('<h1>Xin lỗi bạn đã thi môn này rồi, thao tác này không hợp lệ!</h1>');
+        // }
+        if (student.score) {
+            // return res.send('<h1>Xin lỗi bạn đã thi môn này rồi, thao tác này không hợp lệ!</h1>');
         } else {
             await Student.findOneAndUpdate({ studentID: req.signedCookies.userID.trim() }, {
                 $set: {
