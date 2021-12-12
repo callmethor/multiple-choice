@@ -7,6 +7,7 @@ const findUserBy = require('../util/middleware/findUserBy.middleware')
 const Exam = require('../models/exam.model');
 const fs = require('fs');
 const csv = require('csv-parser');
+const { log } = require('console');
 
 class AdminController {
     // * DASHBOARD feature!
@@ -377,7 +378,10 @@ class AdminController {
                 examID: req.body.examID,
                 subject: await Subject.findOne({ subjectID: req.body.subjectID }),
                 timeDuration: req.body.timeDuration,
-                startDate: req.body.startDate
+                startDate: req.body.startDate,
+                numberOfEasyQuestions: req.body.numberOfEasyQuestions,
+                numberOfMediumQuestions: req.body.numberOfMediumQuestions,
+                numberOfHardQuestions: req.body.numberOfHardQuestions,
             })
             res.redirect('/admin/dashboard');
         } catch (err) {

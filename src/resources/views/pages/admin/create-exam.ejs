@@ -56,6 +56,12 @@
             const dateStr = `${year}-${month}-${day}`;
         %> value="<%=dateStr  %>" <% } %> required>
         <!-- E-mail -->
+        <input required name="numberOfEasyQuestions" type="text" class="form-control mb-4" placeholder="Số câu dễ"
+        value="<%= typeof(exam) !== 'undefined' ? exam.numberOfEasyQuestions : ''%>">
+        <input required name="numberOfMediumQuestions" type="text" class="form-control mb-4" placeholder="Số câu trung bình"
+        value="<%= typeof(exam) !== 'undefined' ? exam.numberOfMediumQuestions : ''%>">
+        <input required name="numberOfHardQuestions" type="text" class="form-control mb-4" placeholder="Số câu khó"
+        value="<%= typeof(exam) !== 'undefined' ? exam.numberOfHardQuestions : ''%>">
         <!-- Submit button -->
         <% if(typeof(exam) !== 'undefined'){ %>
         <button class="btn btn-warning btn-block my-4" type="submit">Cập Nhật</button>

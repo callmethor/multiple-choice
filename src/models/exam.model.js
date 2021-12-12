@@ -31,7 +31,19 @@ const examSchema = new Schema({
     createdDate: {
         type: Date,
         default: new Date()
-    }
+    },
+    numberOfEasyQuestions: {
+        type: String,
+        nullable: true
+    },
+    numberOfMediumQuestions: {
+        type: String,
+        nullable: true
+    },
+    numberOfHardQuestions: {
+        type: String,
+        nullable: true
+    },
 })
 const Exam = mongoose.model('Exam', examSchema);
 
