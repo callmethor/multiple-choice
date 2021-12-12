@@ -86,11 +86,16 @@ class TeacherController {
     }
 
     postStoreCourse = async (req, res, next) => {
-        const formData = req.body;
-        formData.image= `https://img.youtube.com/vi/${req.body.videoID}/sddefault.jpg`;
+        const user = await findUserBy.userID(req.signedCookies.userID);
+        console.log('User: ',user);
+        console.log('Subject: ',user.subject);
+        const subjectID = user.subject;
+        // return;
+        const formData = { ...req.body, subject: subjectID };
+        formData.image = `https://img.youtube.com/vi/${req.body.videoID}/sddefault.jpg`;
         const course = new Course(formData);
         course.save()
-            .then(()=> res.redirect('/teacher/create-course'))
+            .then(() => res.redirect('/teacher/create-course'))
             .catch(next);
 
     }
@@ -98,16 +103,16 @@ class TeacherController {
     //[GET] /teacher/edit-course
     editCourse = async (req, res, next) => {
         Course.findById(req.params.id)
-        .then(course => res.render('pages/teacher/edit-course',
-            {   
-                course,
-                pageTitle: 'Teacher| Thêm Câu Hỏi 🎉',
-            }))
-        .catch(next)
+            .then(course => res.render('pages/teacher/edit-course',
+                {
+                    course,
+                    pageTitle: 'Teacher| Thêm Câu Hỏi 🎉',
+                }))
+            .catch(next)
 
     }
 
-    updateCourse (req, res, next){
+    updateCourse(req, res, next) {
         Course.updateOne({ _id: req.params.id }, req.body)
             .then(() => res.redirect('/teacher/dashboard'))
             .catch(next)
@@ -146,38 +151,38 @@ class TeacherController {
                 .on('end', async () => {
                     console.log(result);
                     Course.insertMany(result)
-                    .then(function(){
-                        console.log("Data inserted")  // Success
-                        res.render('pages/teacher/dashboard',{
-                            pageTitle: '🎑 Giáo Viên | Dashboard',
-                            user: user,
-                            students: students,
-                            teachers: teachers,
-                            courses: courses,
-                            questions: questions,
-                            // exams: exams,
-                            alert: {
-                                type: 'success',
-                                message: 'Tải lên bài giảng thành công 🎉!'
-                            }
+                        .then(function () {
+                            console.log("Data inserted")  // Success
+                            res.render('pages/teacher/dashboard', {
+                                pageTitle: '🎑 Giáo Viên | Dashboard',
+                                user: user,
+                                students: students,
+                                teachers: teachers,
+                                courses: courses,
+                                questions: questions,
+                                // exams: exams,
+                                alert: {
+                                    type: 'success',
+                                    message: 'Tải lên bài giảng thành công 🎉!'
+                                }
+                            })
                         })
-                    })
-                    .catch(function(error){
-                        console.log(error)      // Failure
-                        res.render('pages/teacher/dashboard',{
-                            pageTitle: '🎑 Giáo Viên | Dashboard',
-                            user: user,
-                            students: students,
-                            teachers: teachers,
-                            courses: courses,
-                            questions: questions,
-                            // exams: exams,
-                            alert: {
-                                type: 'danger',
-                                message: 'Tải lên bài giảng không thành công!'
-                            }
-                        })
-                    });
+                        .catch(function (error) {
+                            console.log(error)      // Failure
+                            res.render('pages/teacher/dashboard', {
+                                pageTitle: '🎑 Giáo Viên | Dashboard',
+                                user: user,
+                                students: students,
+                                teachers: teachers,
+                                courses: courses,
+                                questions: questions,
+                                // exams: exams,
+                                alert: {
+                                    type: 'danger',
+                                    message: 'Tải lên bài giảng không thành công!'
+                                }
+                            })
+                        });
                 })
         } catch (err) {
             console.log('ERROR:', err);

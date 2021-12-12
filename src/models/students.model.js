@@ -31,7 +31,7 @@ const studentSchema = new Schema({
         type: Date,
         default: new Date()
     },
-    score: Number
+    // score: Number
 });
 
 studentSchema.pre('save', function (next) {
