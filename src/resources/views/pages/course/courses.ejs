@@ -1,85 +1,116 @@
-<%- include('../../base/head')  %>
-<%- include('../../components/navbar')  %>
+<%- include('../../base/head') %>
+<%- include('../../components/navbar') %>
 <style>
     .card-course-item {
-    margin-top: 16px;
-    margin-bottom: 16px;
+        margin-top: 16px;
+        margin-bottom: 16px;
     }
 
     .card-img-top {
-        max-height:200px;
+        max-height: 200px;
     }
-
-</style>   
+</style>
 <div class="container mt-3">
     <!-- <h2>Bài Giảng</h2>
-    <br> -->
+
     <!-- Nav tabs -->
     <ul class="nav nav-tabs">
-      <li class="nav-item">
-        <a class="nav-link active" data-toggle="tab" href="#ls">Lịch Sử</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" data-toggle="tab" href="#dl">Địa Lý</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" data-toggle="tab" href="#gdcd">GDCD</a>
-      </li>
+        <li class="nav-item">
+            <a class="nav-link active" data-toggle="tab" href="#ls">Lịch Sử</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" data-toggle="tab" href="#dl">Địa Lý</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" data-toggle="tab" href="#gdcd">GDCD</a>
+        </li>
     </ul>
-  
+
     <!-- Tab panes -->
     <div class="tab-content">
-      <div id="ls" class="container tab-pane active">
-        <div class="container mt-2">
-            <div class="row">
-                <% courses.forEach(function(course) { %>    
-                <div class="col-sm-6 col-lg-4">
-                    <div class="card card-course-item">
-                        <a href="/student/courses/<%=course.slug%> ">
-                        <img class="card-img-top" src="<%= course.image %>" alt="<%= course.name %>"> 
-                        </a>
-                        <div class="card-body">
-                            <a href="/student/courses/<%= course.slug %> ">
-                            <h5 class="card-title"><%= course.name %></h5>
-                            </a>
-                            <p class="card-text"><%= course.description %></p>
+        <div id="ls" class="container tab-pane active">
+            <div class="container mt-2">
+                <div class="row">
+                    <% ls.forEach(function(course) { %>
+                        <div class="col-sm-6 col-lg-4">
+                            <div class="card card-course-item">
+                                <a href="/student/courses/<%=course.slug%> ">
+                                    <img class="card-img-top" src="<%= course.image %>"
+                                        alt="<%= course.name %>">
+                                </a>
+                                <div class="card-body">
+                                    <a href="/student/courses/<%= course.slug %> ">
+                                        <h5 class="card-title">
+                                            <%= course.name %>
+                                        </h5>
+                                    </a>
+                                    <p class="card-text">
+                                        <%= course.description %>
+                                    </p>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                </div>
-                <% }); %> 
-            </div>
-        </div>  
-      </div>
-
-      <div id="dl" class="container tab-pane fade"><br>
-        <!-- địa lý -->
-      </div>
-
-      <div id="gdcd" class="container tab-pane fade"><br>
-        <!-- gdcd -->
-        
-      </div>
-    </div>
-  </div>
-
-<!-- <div class="container mt-4">
-    <div class="row">
-        <% courses.forEach(function(course) { %>    
-        <div class="col-sm-6 col-lg-4">
-            <div class="card card-course-item">
-                <a href="/student/courses/<%=course.slug%> ">
-                <img class="card-img-top" src="<%= course.image %>" alt="<%= course.name %>"> 
-                </a>
-                <div class="card-body">
-                    <a href="/student/courses/<%= course.slug %> ">
-                    <h5 class="card-title"><%= course.name %></h5>
-                    </a>
-                    <p class="card-text"><%= course.description %></p>
+                        <% }); %>
                 </div>
             </div>
         </div>
-        <% }); %> 
+
+        <!-- địa lý -->
+        <div id="dl" class="container tab-pane">
+            <div class="container mt-2">
+                <div class="row">
+                    <% dl.forEach(function(course) { %>
+                        <div class="col-sm-6 col-lg-4">
+                            <div class="card card-course-item">
+                                <a href="/student/courses/<%=course.slug%> ">
+                                    <img class="card-img-top" src="<%= course.image %>"
+                                        alt="<%= course.name %>">
+                                </a>
+                                <div class="card-body">
+                                    <a href="/student/courses/<%= course.slug %> ">
+                                        <h5 class="card-title">
+                                            <%= course.name %>
+                                        </h5>
+                                    </a>
+                                    <p class="card-text">
+                                        <%= course.description %>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <% }); %>
+                </div>
+            </div>
+        </div>
+
+        <!-- gdcd -->
+        <div id="gdcd" class="container tab-pane">
+            <div class="container mt-2">
+                <div class="row">
+                    <% gdcd.forEach(function(course) { %>
+                        <div class="col-sm-6 col-lg-4">
+                            <div class="card card-course-item">
+                                <a href="/student/courses/<%=course.slug%> ">
+                                    <img class="card-img-top" src="<%= course.image %>"
+                                        alt="<%= course.name %>">
+                                </a>
+                                <div class="card-body">
+                                    <a href="/student/courses/<%= course.slug %> ">
+                                        <h5 class="card-title">
+                                            <%= course.name %>
+                                        </h5>
+                                    </a>
+                                    <p class="card-text">
+                                        <%= course.description %>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <% }); %>
+                </div>
+            </div>
+        </div>
     </div>
-</div> -->
-<%- include('../../components/footer')  %>
-<%- include('../../base/end')  %> 
+</div>
+<%- include('../../components/footer') %>
+<%- include('../../base/end') %>

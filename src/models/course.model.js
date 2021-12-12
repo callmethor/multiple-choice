@@ -31,10 +31,10 @@ const Course = new Schema(
             type: mongoose.Types.ObjectId,
             ref: 'Teacher'
         },
-        // subject: {
-        //     type: mongoose.Schema.Types.ObjectId,
-        //     ref: 'Subject'
-        // },
+        subject: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Subject'
+        }
        
     },
     {

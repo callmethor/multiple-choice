@@ -12,12 +12,18 @@ class StudentController {
 
     getCourses = async (req, res, next) => {
         const user = await findUserBy.userID(req.signedCookies.userID)
-        Course.find({})
-            .then(courses => res.render('pages/course/courses', {
-                courses: courses,
-                pageTitle: 'Bài Giảng',
-                user: user,
-            }))
+        Course.find({}).populate('subject')
+            .then(courses => {
+                console.log({ courses: courses[0].subject });
+                res.render('pages/course/courses', {
+                    courses: courses,
+                    ls: courses.filter(course => course.subject.name === 'Lịch Sử'),
+                    dl: courses.filter(course => course.subject.name === 'Địa Lý'),
+                    gdcd: courses.filter(course => course.subject.name === 'GDCD'),
+                    pageTitle: 'Bài Giảng',
+                    user: user,
+                })
+            })
             .catch(next);
 
     }
@@ -112,10 +118,27 @@ class StudentController {
 
     exam = async (req, res, next) => {
         const exam = res.locals.exam;
+        const numberOfEasyQuestions = exam.numberOfEasyQuestions;
+        const numberOfMediumQuestions = exam.numberOfMediumQuestions;
+        const numberOfHardQuestions = exam.numberOfHardQuestions;
         const student = res.locals.student;
         let questions = await Question.find().populate('teacher');
+        // let easyQuestions = await Question.find({ level: 'easy' }).populate('teacher').limit(parseInt(numberOfEasyQuestions));
+        // let mediumQuestions = await Question.find({ level: 'normal' }).populate('teacher').limit(parseInt(numberOfMediumQuestions));
+        // let hardQuestions = await Question.find({ level: 'hard' }).populate('teacher').limit(parseInt(numberOfHardQuestions));
+        // console.log({easyQuestions , mediumQuestions, hardQuestions });
+        // return;
+        // let questions = [...easyQuestions,...mediumQuestions,...hardQuestions] ;
         questions = questions.filter(question => question.teacher.subjectID.trim() === exam.subject.subjectID.trim())
-        questions = _.shuffle(questions);
+
+        const easyQuestions = _.shuffle(questions.filter(question => question.level === 'easy')).slice(0, parseInt(numberOfEasyQuestions));
+        const mediumQuestions = _.shuffle(questions.filter(question => question.level === 'normal')).slice(0, parseInt(numberOfMediumQuestions));
+        const hardQuestions = _.shuffle(questions.filter(question => question.level === 'hard')).slice(0, parseInt(numberOfHardQuestions));
+
+        questions = [...easyQuestions, ...mediumQuestions, ...hardQuestions];
+
+
+        // questions = _.shuffle(questions);
         res.render('pages/student/exam', {
             pageTitle: 'Sinh Viên| Làm Bài Thi',
             user: await findUserBy.userID(req.signedCookies.userID),
