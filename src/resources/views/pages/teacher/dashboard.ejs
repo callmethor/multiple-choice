@@ -197,7 +197,11 @@
                         </tr>
                     </thead>
                     <tbody id="table-content-course-teacher">
-                        <%courses.forEach((course, idx) => { %>
+                      <!--   nếu là giáo viên sử thì hiện bài giảng sử -->
+
+                        <% if(teacher[0].subjectID === user.subjectID) { %> 
+                        <% console.log('USER :',user.subjectID); %>           
+                        <%ls.forEach((course, idx) => { %>
                             <tr>
                                 <th><%=idx+1%></th>
                                 <td><%=course.name%></td>
@@ -210,7 +214,8 @@
                                     <% if(course.level === 'hard'){ %>
                                     <td class="text-center">Khó </td>
                                     <% } %>
-                                <td>Lịch Sử</td>
+                                <td><%= course.subject.name  %> </td>
+                            
 
                                 <% 
                                 const date = new Date(course.createdAt);
@@ -221,7 +226,7 @@
                                 const minutes = date.getMinutes() + 1 < 10 ? `0${date.getMinutes() + 1}` :date.getMinutes() + 1;
                                 const seconds = date.getSeconds() + 1 < 10 ? `0${date.getSeconds() + 1}` :date.getSeconds() + 1;
                                 const dateStr = `${day}-${month}-${year} | ${hours}:${minutes}:${seconds}`;
-                                 %>
+                                %>
                                 <td><%= dateStr  %> </td>
 
                                 <td style="width: 100px;">
@@ -240,10 +245,109 @@
                                             </button>
                                         <!-- </form> -->
                                     </div>                              
-                            </tr>
-                            
-                        <%})%>
-                                            
+                            </tr>         
+                            <%})%>
+                        <% } %>   
+
+                            <!-- Giáo viên địa -->
+                        <% if(teacher[1].subjectID === user.subjectID) { %>                            
+                            <%dl.forEach((course, idx) => { %>
+                                <tr>
+                                    <th><%=idx+1%></th>
+                                    <td><%=course.name%></td>
+                                    <% if(course.level === 'easy'){ %>
+                                        <td class="text-center">Dễ </td>
+                                        <% } %>
+                                        <% if(course.level === 'normal'){ %>
+                                        <td class="text-center">Trung Bình </td>
+                                        <% } %>
+                                        <% if(course.level === 'hard'){ %>
+                                        <td class="text-center">Khó </td>
+                                        <% } %>
+                                    <td><%= course.subject.name  %> </td>
+                                
+
+                                    <% 
+                                    const date = new Date(course.createdAt);
+                                    const day = date.getDate() < 10 ? `0${date.getDate()}` : date.getDate();
+                                    const month = date.getMonth() + 1 < 10 ? `0${date.getMonth() + 1}` : date.getMonth() + 1;
+                                    const year = date.getFullYear();
+                                    const hours = date.getHours() + 1 < 10 ? `0${date.getHours() + 1}` : date.getHours() + 1;
+                                    const minutes = date.getMinutes() + 1 < 10 ? `0${date.getMinutes() + 1}` :date.getMinutes() + 1;
+                                    const seconds = date.getSeconds() + 1 < 10 ? `0${date.getSeconds() + 1}` :date.getSeconds() + 1;
+                                    const dateStr = `${day}-${month}-${year} | ${hours}:${minutes}:${seconds}`;
+                                    %>
+                                    <td><%= dateStr  %> </td>
+
+                                    <td style="width: 100px;">
+                                        <div class="row justify-content-center">
+                                            <form method="POST" action="/teacher/edit-course/<%= course._id%>" >
+                                                <input type="text" name="question" value="0" hidden>
+                                                <button type="submit" class="text-warning bg-transparent border-0"
+                                                    title="Edit Course">
+                                                    <i class="far fa-edit"></i>
+                                                </button>
+                                            </form>
+                                            <!-- <form action="/teacher/delete-question" method="POST"> -->
+                                                <button onclick="deleteCourseByID(`<%=course._id %>`)" type="button"
+                                                    class="text-danger bg-transparent border-0" title="Delete Course">
+                                                    <i class="far fa-trash-alt"></i>
+                                                </button>
+                                            <!-- </form> -->
+                                        </div>                              
+                                </tr>   
+                                <%})%>
+                            <% } %>
+
+                            <!-- GV GDCD -->
+                            <% if(teacher[2].subjectID === user.subjectID) { %>                                
+                                <%gdcd.forEach((course, idx) => { %>
+                                    <tr>
+                                        <th><%=idx+1%></th>
+                                        <td><%=course.name%></td>
+                                        <% if(course.level === 'easy'){ %>
+                                            <td class="text-center">Dễ </td>
+                                            <% } %>
+                                            <% if(course.level === 'normal'){ %>
+                                            <td class="text-center">Trung Bình </td>
+                                            <% } %>
+                                            <% if(course.level === 'hard'){ %>
+                                            <td class="text-center">Khó </td>
+                                            <% } %>
+                                        <td><%= course.subject.name  %> </td>
+                                    
+    
+                                        <% 
+                                        const date = new Date(course.createdAt);
+                                        const day = date.getDate() < 10 ? `0${date.getDate()}` : date.getDate();
+                                        const month = date.getMonth() + 1 < 10 ? `0${date.getMonth() + 1}` : date.getMonth() + 1;
+                                        const year = date.getFullYear();
+                                        const hours = date.getHours() + 1 < 10 ? `0${date.getHours() + 1}` : date.getHours() + 1;
+                                        const minutes = date.getMinutes() + 1 < 10 ? `0${date.getMinutes() + 1}` :date.getMinutes() + 1;
+                                        const seconds = date.getSeconds() + 1 < 10 ? `0${date.getSeconds() + 1}` :date.getSeconds() + 1;
+                                        const dateStr = `${day}-${month}-${year} | ${hours}:${minutes}:${seconds}`;
+                                        %>
+                                        <td><%= dateStr  %> </td>
+    
+                                        <td style="width: 100px;">
+                                            <div class="row justify-content-center">
+                                                <form method="POST" action="/teacher/edit-course/<%= course._id%>" >
+                                                    <input type="text" name="question" value="0" hidden>
+                                                    <button type="submit" class="text-warning bg-transparent border-0"
+                                                        title="Edit Course">
+                                                        <i class="far fa-edit"></i>
+                                                    </button>
+                                                </form>
+                                                <!-- <form action="/teacher/delete-question" method="POST"> -->
+                                                    <button onclick="deleteCourseByID(`<%=course._id %>`)" type="button"
+                                                        class="text-danger bg-transparent border-0" title="Delete Course">
+                                                        <i class="far fa-trash-alt"></i>
+                                                    </button>
+                                                <!-- </form> -->
+                                            </div>                              
+                                    </tr>
+                                    <%})%>
+                                <% } %>                                 
                     </tbody>
                 </table>
               </div>

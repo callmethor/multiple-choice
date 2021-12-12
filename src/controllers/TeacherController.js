@@ -15,7 +15,8 @@ class TeacherController {
         if (req.signedCookies.userID) {
             const user = await findUserBy.userID(req.signedCookies.userID)
             let students = await Student.find().populate('subject');
-            let courses = await Course.find();
+            let courses = await Course.find({}).populate('subject');
+            let teacher = await Teacher.find({}).populate('subject');
 
             students = students.filter(students => students.subject.subjectID == user.subjectID);
             const questions = await Question.find({ teacher: (await findUserBy.userID(req.signedCookies.userID))._id }).sort('-createdDate').populate({
@@ -29,8 +30,12 @@ class TeacherController {
                 pageTitle: '🎉 Teacher| Dashboard !',
                 user: user,
                 questions: questions,
+                teacher: teacher,
                 students: students,
-                courses: courses
+                courses: courses,
+                ls: courses.filter(course => course.subject.name === 'Lịch Sử'),
+                dl: courses.filter(course => course.subject.name === 'Địa Lý'),
+                gdcd: courses.filter(course => course.subject.name === 'GDCD'),
             });
         } else {
             res.redirect('/users/login')
