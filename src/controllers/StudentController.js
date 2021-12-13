@@ -156,14 +156,14 @@ class StudentController {
                 question = await Question.findOne({ _id: req.body[q][0].trim() });
                 if (question) {
                     if (question.correct.trim() === req.body[q][1]) {
-                        score += 1;
+                        score += 0.4;
                     }
                 }
             } else {
                 question = await Question.findOne({ _id: req.body[q].trim() });
                 if (question) {
                     if (question.correct.trim() === req.body[q]) {
-                        score += 1;
+                        score += 0.4;
                     }
                 }
             }
