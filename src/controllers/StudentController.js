@@ -142,7 +142,7 @@ class StudentController {
         res.render('pages/student/exam', {
             pageTitle: 'Sinh Viên| Làm Bài Thi',
             user: await findUserBy.userID(req.signedCookies.userID),
-            questions: questions.filter((q, i) => i < 20),
+            questions: questions.filter((q, i) => i < 40),
             exam: exam,
             student: student
         });

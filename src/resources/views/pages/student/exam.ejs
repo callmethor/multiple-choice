@@ -5,7 +5,7 @@
         scroll-behavior: smooth;
     }
     .timer {
-        width: 250px;
+        width: 300px;
         height: 500px;
         position: fixed;
         right: 0px;
@@ -17,7 +17,7 @@
     .infomation {
         width: 100%;
         height: 10%;
-        border: 1px solid rgb(164, 255, 90);
+       /*  border: 1px solid rgb(164, 255, 90); */
         text-align: center;
         display: flex;
         flex-direction: column;
@@ -39,7 +39,7 @@
     .clock {
         width: 100%;
         height: 10%;
-        border: 1px solid rgb(164, 255, 90);
+       /*  border: 1px solid rgb(164, 255, 90); */
         text-align: center;
         display: flex;
         flex-direction: column;
@@ -58,7 +58,7 @@
         flex-wrap: wrap;
         justify-content: center;
         align-items: center;
-        border: 1px solid rgb(164, 255, 90);
+        /* border: 1px solid rgb(164, 255, 90); */
         padding-left: 0;
         margin-bottom: 0;
         background-color: #fff;
@@ -66,9 +66,9 @@
     }
 
     .question {
-        margin: 0 5px;
-        width: 55px;
-        height: 55px;
+        margin: 3px;
+        width: 50px;
+        height: 50px;
         border: 1px solid rgb(255, 255, 255);
         display: flex;
         justify-content: center;
@@ -116,15 +116,15 @@
         justify-content: space-evenly;
     }
 </style>
-<div class="timer aqua-gradient card">
-    <div class="infomation peach-gradient">
+<div class="timer tempting-azure-gradient card">
+    <div class="infomation tempting-azure-gradient">
         <% if(typeof(student) !== 'undefined'){ %>
         <p class="name"><%= student.name  %> </p>
         <p class="studentID"><%= student.studentID  %></p>
         <% } %>
     </div>
     <% if(typeof(exam) !== 'undefined'){ %>
-    <div class="clock dusty-grass-gradient" id="clock-time"><%= exam.timeDuration  %>:00 </div>
+    <div class="clock tempting-azure-gradient" id="clock-time"><%= exam.timeDuration  %>:00 </div>
     <% } %>
     <ul class="questions tempting-azure-gradient">
         <% if(typeof(questions) !== 'undefined'){ %>
@@ -133,17 +133,17 @@
         <% }) %>
         <% } %>
     </ul>
-    <div class=" finish dusty-grass-gradient">
+  <!--   <div class=" finish dusty-grass-gradient"> -->
         <!-- <p class="message">Số câu hoàn thành/ Số câu chưa hoàn thành</p>
         <p class="number"><span style="color: green;">8</span> / <span style="color: red;">2</span></p> -->
-        <p>Màu xanh là những câu đã làm!</p>
-    </div>
-    <div class="handle">
+      <!--   <p>Màu xanh là những câu đã làm!</p>
+    </div> -->
+   <!--  <div class="handle"> -->
         <!-- <a href="#" class="submit">Nộp Bài</a> -->
-    </div>
-
+  <!--   </div>
+ -->
 </div>
-<div class="container my-5">
+<div class="container my-5" id="exam-form">
     <% if(typeof(exam) !== 'undefined'){ %>
     <h2 class="h3 my-5"><%= exam.name  %> </h2>
     <p class="my-5">Thời gian: <%= exam.timeDuration  %> phút</p>
@@ -194,5 +194,6 @@
     </form>
     <a class="btn btn-outline-blue" id="push-exam">Nộp Bài</a>
 </div>
+    
 <%- include('../../components/footer')  %>
 <%- include('../../base/end')  %>
