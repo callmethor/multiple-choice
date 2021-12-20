@@ -177,6 +177,7 @@ class StudentController {
         if (student.score) {
             // return res.send('<h1>Xin lỗi bạn đã thi môn này rồi, thao tác này không hợp lệ!</h1>');
         } else {
+            
             await Student.findOneAndUpdate({ studentID: req.signedCookies.userID.trim() }, {
                 $set: {
                     score: score
@@ -185,7 +186,7 @@ class StudentController {
             res.render('pages/student/score', {
                 pageTitle: 'Sinh Viên| Kết quả bài thi',
                 user: await findUserBy.userID(req.signedCookies.userID),
-                score: score
+                score: score.toFixed(2)
             });
         }
 
