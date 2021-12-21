@@ -10,7 +10,7 @@
         </a>
     </div>
 
-    <h5 class="indigo-text h5 mb-4">Tìm Kiếm Ca Thi</h5>
+    <h5 class="indigo-text h5 mb-4">Chọn Ca Thi</h5>
     <% if(typeof(alert) !== 'undefined'){  %>
     <div class="alert alert-<%= alert.type  %>  alert-dismissible fade show" role="alert">
         <strong><%= alert.message  %> </strong>
@@ -24,7 +24,14 @@
     <form class="text-center" action="/student/search-exam" method="POST">
 
         <!-- Name -->
-        <input type="text" name="search" class="form-control mb-4"  placeholder="Nhập Mã Ca Thi" value="<%= typeof(search) !== 'undefined'? search: '' %> ">
+
+          <!-- <input type="text" name="search" class="form-control mb-4" placeholder="Nhập Mã Ca Thi" value="<%= typeof(search) !== 'undefined'? search: '' %> "> -->
+          
+          <select name="search" class="form-control mb-4" id="exams">
+            <% exam.forEach(exam => {  %> 
+              <option value="<%= exam.examID  %>"><%= exam.name  %></option>
+              <% }) %> 
+            </select>
 
         <!-- Email -->
         <!-- Sign in button -->

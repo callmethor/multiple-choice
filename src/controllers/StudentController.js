@@ -46,7 +46,8 @@ class StudentController {
     getSearchExam = async (req, res, next) => {
         res.render('pages/student/search-exam', {
             pageTitle: 'Sinh Viên| Tìm Kiếm Ca Thi',
-            user: await findUserBy.userID(req.signedCookies.userID)
+            user: await findUserBy.userID(req.signedCookies.userID),
+            exam : await Exam.find({}).populate('subject'),
         });
     }
 
