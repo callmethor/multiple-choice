@@ -243,6 +243,7 @@ class TeacherController {
             const teacher = await findUserBy.userID(req.signedCookies.userID);
             const user = await findUserBy.userID(req.signedCookies.userID)
             const students = await Student.find();
+            const subjects = await Subject.find();
             const courses = await Course.find();
             let questions = await Question.find({ teacher: (await findUserBy.userID(req.signedCookies.userID))._id }).sort('-createdDate')
             fs.createReadStream(path)
@@ -252,7 +253,8 @@ class TeacherController {
                     result.forEach(q => { q.teacher = teacher._id });
                     try {
                         await Question.insertMany(result);
-                        res.render('pages/teacher/dashboard', {
+                        res.redirect('/teacher/dashboard')
+                       /*  , {
                             pageTitle: 'Upload câu hỏi thành công!',
                             user: user,
                             questions: await Question.find({ teacher: (await findUserBy.userID(req.signedCookies.userID))._id }).sort('-createdDate').populate({
@@ -268,10 +270,10 @@ class TeacherController {
                                 type: 'success',
                                 message: 'Upload câu hỏi thành công 🎉!'
                             },
-                        })
+                        }) */
                     } catch (error) {
 
-                        res.render('pages/teacher/dashboard', {
+                        res.redirect('/teacher/dashboard', {
                             pageTitle: 'File câu hỏi khồng hợp lệ',
                             user: user,
                             questions: questions,
