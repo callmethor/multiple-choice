@@ -74,7 +74,7 @@ class TeacherController {
     // Update and delete course
     getCreateNewCourse = async (req, res, next) => {
         res.render('pages/teacher/create-course', { 
-            pageTitle: 'Teacher| Thêm Bài Học 🎉',
+            pageTitle: 'Teacher| Thêm Bài Giảng 🎉',
             user: await findUserBy.userID(req.signedCookies.userID),
             //  alert: {
             //     type: 'success',

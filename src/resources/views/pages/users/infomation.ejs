@@ -26,9 +26,9 @@
                 <% if(user.subjectID){ %>
                 <p class="text-info">Mã Môn Học: <%= user.subjectID  %> </p>
                 <% } %>
-                <% if(user.subject){ %>
+               <!--  <% if(user.subject){ %>
                 <p class="text-info">Môn Học: <%= user.subject.name %> </p>
-                <% } %>
+                <% } %> -->
                 <p class="text-info">Quyền Hạn: <%= role %> </p>
                 <% const date = new Date(user.dateOfBirth);
         const day = date.getDate() < 10 ? `0${date.getDate()}` : date.getDate();
