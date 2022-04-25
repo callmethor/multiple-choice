@@ -1,6 +1,4 @@
 const server = require('./app');
-const mongoose = require('mongoose');
-const Student = require('./models/students.model')
 const Admin = require('./models/admin.model')
 const md5 = require('md5')
 const db = require('./config/db')
@@ -20,6 +18,7 @@ const PORT = process.env.PORT || 3000;
 db.connect();
 server.listen(PORT, () => {
     console.log(`server is running on http://localhost:${PORT}`);
+    console.log(`server is running on http://172.16.0.166:${PORT}`);
 })
 
 
